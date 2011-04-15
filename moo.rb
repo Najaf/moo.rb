@@ -1,13 +1,3 @@
-=begin
-What problems are we trying to solve here?
-
-a) provide an easy way to manipulate cards/packs/sides
-b) apply various contraints (or at least give warnings)
-   when pack/card/side data is malformed or incorrect
-c) interact with moo api and provide drop-in urls so
-   any client code can easily redirect to wherever they
-   like
-=end
 module MooClient
   class Pack
     attr_accessor :cards
