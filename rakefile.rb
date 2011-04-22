@@ -1,5 +1,8 @@
 require 'rake'
 require 'rspec/core/rake_task'
+gem 'moo'
+puts Gem.datadir('moo')
+puts 'woof'
 
 task :default => :rspec
 desc "run all examples"
