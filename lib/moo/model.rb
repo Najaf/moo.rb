@@ -1,3 +1,3 @@
-require 'model/pack'
-require 'model/card'
-require 'model/side'
+require 'moo/model/pack'
+require 'moo/model/card'
+require 'moo/model/side'
