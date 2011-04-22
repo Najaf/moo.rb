@@ -1,7 +1,10 @@
-$:.unshift File.join(File.dirname(__FILE__),'lib')
-require 'moo'
+require 'rake'
+require 'rspec/core/rake_task'
 
-task :default => :test
-
-task :test do
+task :default => :rspec
+desc "run all examples"
+RSpec::Core::RakeTask.new('rspec') do |t|
+  t.pattern = 'spec/**/*_spec.rb'
+  t.rspec_opts = ['-c', '-f d']
 end
+
