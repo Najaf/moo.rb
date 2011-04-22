@@ -5,13 +5,13 @@ require 'moo/version'
  
 Gem::Specification.new do |s|
   s.name        = "moo"
-  s.version     = Moo::VERSION
+  s.version     = "0.0.1"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Najaf Ali"]
   s.email       = ["ali.najaf@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "http://example.com"
   s.summary     = "Moo API client library"
-  s.description = "Moo API client library"
+  s.description = "Simple ruby library for creating and printing stuff at moo.com"
  
   s.required_rubygems_version = ">= 1.3.6"
 
