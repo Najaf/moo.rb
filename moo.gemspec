@@ -1,8 +1,6 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
  
-require 'moo/version'
- 
 Gem::Specification.new do |s|
   s.name        = "moo"
   s.version     = "0.0.1"
