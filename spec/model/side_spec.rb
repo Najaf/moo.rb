@@ -28,5 +28,19 @@ describe Moo::Model::Side do
       side = Side.new
       expect { side.template_code = 'slartibartfast' }.should raise_error(ArgumentError, "invalid templatecode")
     end
+
+    it "should not complain on valid template code" do
+      side = Side.new
+      expect { side.template_code = 'businesscard_full_image_landscape' }.should_not(
+          raise_error(ArgumentError, "invalid templatecode")
+      )
+    end
+
+    it "should set @template to the appropriate template object" do
+      side = Side.new
+      side.template_code = "businesscard_full_image_landscape"
+      side.template.code.should == 'businesscard_full_image_landscape'
+    end
   end
+
 end

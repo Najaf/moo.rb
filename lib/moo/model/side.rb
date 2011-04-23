@@ -1,8 +1,9 @@
-require 'moo'
+require 'moo/model/template'
+
 module Moo
   module Model
     class Side
-      attr_accessor :template_code, :data, :type, :pack
+      attr_accessor :template, :data, :type, :pack
 
       def type=new_type
         unless ['image', 'details'].include? new_type
@@ -17,6 +18,15 @@ module Moo
         end
         @pack = pack
       end
+
+      # wrapper that sets template object 
+      def template_code=code
+        unless Template.codes.include? code
+          raise ArgumentError, "invalid templatecode"
+        end
+        @template = Template.with_code code
+      end
+
     end
   end
 end
