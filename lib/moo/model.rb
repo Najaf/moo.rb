@@ -1,3 +1,8 @@
+# side data dependencies
+require 'moo/model/bounding_box'
+require 'moo/model/font'
+require 'moo/model/colour'
+
 # side data
 require 'moo/model/data'
 require 'moo/model/box_data'
