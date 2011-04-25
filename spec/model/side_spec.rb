@@ -43,4 +43,19 @@ describe Moo::Model::Side do
     end
   end
 
+  describe "template_code" do
+    it "should return nil if template or template code hasn't been set yet" do
+      Side.new.template_code.should == nil
+    end
+
+    it "should return set template code if template code set" do
+      side = Side.new
+      side.template_code = 'businesscard_full_image_landscape'
+      side.template_code.should == 'businesscard_full_image_landscape'
+    end
+
+    it "should return code of set template if template has been set" do
+    end
+  end
+
 end

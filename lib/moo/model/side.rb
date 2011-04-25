@@ -27,6 +27,11 @@ module Moo
         @template = Template.with_code code
       end
 
+      def template_code
+        return nil if @template.nil?
+        @template.code
+      end
+
     end
   end
 end
