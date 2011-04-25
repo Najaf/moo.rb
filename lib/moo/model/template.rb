@@ -46,7 +46,7 @@ module Moo
         end
       end
 
-      attr_reader :filename, :product, :xml
+      attr_reader :filename, :product
       attr_accessor :code
 
       # get the filename, check it exists, but don't load it up
@@ -58,6 +58,7 @@ module Moo
         @filename = template_filename
         @code = File.basename @filename, '.xml'
         @product = @code.split('_')[0]
+        @xml_doc = nil
       end
 
       # load the data from the file into the object
@@ -67,6 +68,12 @@ module Moo
         unless code == xml_template_code
           raise StandardError, "template codes '#{code}' and '#{xml_template_code}' don't match"
         end
+        @xml_doc = doc
+      end
+
+      def to_xml
+        load if @xml_doc.nil? 
+        @xml_doc.to_s
       end
     end
   end

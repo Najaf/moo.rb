@@ -130,11 +130,14 @@ describe Template do
       expect { t.load }.should(
         raise_error(StandardError, "template codes 'slartibartfast' and 'businesscard_full_image_landscape' don't match")
       )
+      Template.unload
     end
   end
 
   describe 'to_xml' do
-    it "loads the templates xml if it hasn't been loaded already" do
+    it 'should return a non-empty string' do
+      t = Template.with_code 'businesscard_full_image_landscape'
+      t.to_xml.should_not == ''
     end
   end
 end
