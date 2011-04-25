@@ -71,7 +71,7 @@ describe Template do
   end
 
   describe 'load' do
-    it "should load all 14 businesscard templates (for now)" do
+    it "should load all templates" do
       Template.load
       Template.all.each do |t|
         t.should be_an_instance_of Template
@@ -97,7 +97,7 @@ describe Template do
       Template.loaded?.should == true
     end
 
-    it 'should contain all 14 businesscard template codes' do
+    it 'should contain all  template codes' do
       codes = template_codes
       Template.codes.each do |c|
         codes.should include c
