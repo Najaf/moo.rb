@@ -1,0 +1,238 @@
+
+<?xml version="1.0" encoding="UTF-8"?> 
+<Template xmlns="http://www.moo.com/xsd/template-1.0"> 
+    <Code>minicard_left_image_landscape</Code> 
+    <Version>1</Version> 
+    <Settings> 
+        <Units type="millimetres"/> 
+        <Origin orientation="top-left" offsetX="0" offsetY="0"/> 
+        <PrintArea> 
+            <Width>74</Width> 
+            <Height>32</Height> 
+        </PrintArea> 
+        <BleedBox> 
+            <Centre x="37" y="16"/> 
+            <Width>74</Width> 
+            <Height>32</Height> 
+            <Angle>0</Angle> 
+        </BleedBox> 
+        <CutBox> 
+            <Centre x="37" y="16"/> 
+            <Width>70</Width> 
+            <Height>28</Height> 
+            <Angle>0</Angle> 
+        </CutBox> 
+        <SafeAreaBox> 
+            <!--  assume safe area matches bleed for now @ 2mm --> 
+            <Centre x="37" y="16"/> 
+            <Width>66</Width> 
+            <Height>24</Height> 
+            <Angle>0</Angle> 
+        </SafeAreaBox> 
+        <RotationAngle>0</RotationAngle> 
+        <FontSubstitutionStrategy>allLinesIfAnyNeeded</FontSubstitutionStrategy> 
+    </Settings> 
+    <Items> 
+        <Box> 
+            <LinkId>background_box</LinkId> 
+            <ClippingBox> 
+               <Centre x="37" y="16"/> 
+               <Width>74</Width> 
+                <Height>32</Height> 
+               <Angle>0</Angle> 
+            </ClippingBox> 
+             <Colour type="CMYK"> 
+                <Cyan>0</Cyan> 
+                <Magenta>0</Magenta> 
+                <Yellow>0</Yellow> 
+                <Black>0</Black> 
+             </Colour> 
+            <Filled>true</Filled> 
+            <Layout> 
+                <zIndex>0</zIndex> 
+            </Layout> 
+        </Box> 
+        <Image> 
+             <LinkId>variable_image_back</LinkId> 
+             <ClippingBox> 
+                <Centre x="10.5" y="16"/> 
+                <Width>21</Width> 
+                <Height>32</Height> 
+                <Angle>0</Angle> 
+             </ClippingBox> 
+             <Constraints> 
+                 <TopEdge outside="true" betweenBleedAndCut="true" betweenCutAndSafe="true" insideSafe="true"/> 
+                 <LeftEdge outside="true" betweenBleedAndCut="true" betweenCutAndSafe="true" insideSafe="true"/> 
+                 <BottomEdge outside="true" betweenBleedAndCut="true" betweenCutAndSafe="true" insideSafe="true"/> 
+                 <RightEdge outside="true" betweenBleedAndCut="true" betweenCutAndSafe="true" insideSafe="true"/> 
+             </Constraints> 
+             <Layout> 
+                 <zIndex>1</zIndex> 
+             </Layout> 
+         </Image> 
+         <Text> 
+             <LinkId>back_line_1</LinkId> 
+             <Font> 
+                 <Family>Helvetica</Family> 
+                 <Bold>false</Bold> 
+                 <Italic>false</Italic> 
+             </Font> 
+             <ClippingBox> 
+                <!-- y = textbox baseline - (0.25 * height of textbox) --> 
+                <Centre x="46.5" y="7.4"/> 
+                <Width>43</Width> 
+                <Height>3.6</Height> 
+                <Angle>0</Angle> 
+             </ClippingBox> 
+             <!-- 7 * (25.4/72) = 7pt --> 
+             <PointSize>2.46944444</PointSize> 
+             <Alignment>left</Alignment> 
+             <Constraints fontFixed="false" colourFixed="false" pointSizeFixed="false" alignmentFixed="false"/> 
+             <Layout> 
+                 <zIndex>2</zIndex> 
+             </Layout> 
+             <Colour type="RGB"> 
+               <Red>0</Red> 
+               <Green>0</Green> 
+               <Blue>0</Blue> 
+             </Colour> 
+             <Text/> 
+        </Text> 
+        <Text> 
+             <LinkId>back_line_2</LinkId> 
+             <Font> 
+                 <Family>Helvetica</Family> 
+                 <Bold>false</Bold> 
+                 <Italic>false</Italic> 
+             </Font> 
+             <ClippingBox> 
+                 <Centre x="46.5" y="11"/> 
+                 <Width>43</Width> 
+                 <Height>3.6</Height> 
+                 <Angle>0</Angle> 
+             </ClippingBox> 
+             <!-- 7 * (25.4/72) = 7pt --> 
+             <PointSize>2.46944444</PointSize> 
+             <Alignment>left</Alignment> 
+             <Constraints fontFixed="false" colourFixed="false" pointSizeFixed="false" alignmentFixed="false"/> 
+             <Layout> 
+                 <zIndex>3</zIndex> 
+             </Layout> 
+             <Colour type="RGB"> 
+               <Red>0</Red> 
+               <Green>0</Green> 
+               <Blue>0</Blue> 
+             </Colour> 
+             <Text/> 
+        </Text> 
+        <Text> 
+             <LinkId>back_line_3</LinkId> 
+             <Font> 
+                 <Family>Helvetica</Family> 
+                 <Bold>false</Bold> 
+                 <Italic>false</Italic> 
+             </Font> 
+             <ClippingBox> 
+                 <Centre x="46.5" y="14.6"/> 
+                 <Width>43</Width> 
+                 <Height>3.6</Height> 
+                 <Angle>0</Angle> 
+             </ClippingBox> 
+             <!-- 7 * (25.4/72) = 7pt --> 
+             <PointSize>2.46944444</PointSize> 
+             <Alignment>left</Alignment> 
+             <Constraints fontFixed="false" colourFixed="false" pointSizeFixed="false" alignmentFixed="false"/> 
+             <Layout> 
+                 <zIndex>4</zIndex> 
+             </Layout> 
+             <Colour type="RGB"> 
+               <Red>0</Red> 
+               <Green>0</Green> 
+               <Blue>0</Blue> 
+             </Colour> 
+             <Text/> 
+        </Text> 
+        <Text> 
+             <LinkId>back_line_4</LinkId> 
+             <Font> 
+                 <Family>Helvetica</Family> 
+                 <Bold>false</Bold> 
+                 <Italic>false</Italic> 
+             </Font> 
+             <ClippingBox> 
+                 <Centre x="46.5" y="18.2"/> 
+                 <Width>43</Width> 
+                 <Height>3.6</Height> 
+                 <Angle>0</Angle> 
+             </ClippingBox> 
+             <!-- 7 * (25.4/72) = 7pt --> 
+             <PointSize>2.46944444</PointSize> 
+             <Alignment>left</Alignment> 
+             <Constraints fontFixed="false" colourFixed="false" pointSizeFixed="false" alignmentFixed="false"/> 
+             <Layout> 
+                 <zIndex>5</zIndex> 
+             </Layout> 
+             <Colour type="RGB"> 
+               <Red>0</Red> 
+               <Green>0</Green> 
+               <Blue>0</Blue> 
+             </Colour> 
+             <Text/> 
+        </Text> 
+        <Text> 
+             <LinkId>back_line_5</LinkId> 
+             <Font> 
+                 <Family>Helvetica</Family> 
+                 <Bold>false</Bold> 
+                 <Italic>false</Italic> 
+             </Font> 
+             <ClippingBox> 
+                 <Centre x="46.5" y="21.8"/> 
+                 <Width>43</Width> 
+                 <Height>3.6</Height> 
+                 <Angle>0</Angle> 
+             </ClippingBox> 
+             <!-- 7 * (25.4/72) = 7pt --> 
+             <PointSize>2.46944444</PointSize> 
+             <Alignment>left</Alignment> 
+             <Constraints fontFixed="false" colourFixed="false" pointSizeFixed="false" alignmentFixed="false"/> 
+             <Layout> 
+                 <zIndex>6</zIndex> 
+             </Layout> 
+             <Colour type="RGB"> 
+               <Red>0</Red> 
+               <Green>0</Green> 
+               <Blue>0</Blue> 
+             </Colour> 
+             <Text/> 
+        </Text> 
+        <Text> 
+             <LinkId>back_line_6</LinkId> 
+             <Font> 
+                 <Family>Helvetica</Family> 
+                 <Bold>false</Bold> 
+                 <Italic>false</Italic> 
+             </Font> 
+             <ClippingBox> 
+                 <Centre x="46.5" y="25.4"/> 
+                 <Width>43</Width> 
+                 <Height>3.6</Height> 
+                 <Angle>0</Angle> 
+             </ClippingBox> 
+             <!-- 7 * (25.4/72) = 7pt --> 
+             <PointSize>2.46944444</PointSize> 
+             <Alignment>left</Alignment> 
+             <Constraints fontFixed="false" colourFixed="false" pointSizeFixed="false" alignmentFixed="false"/> 
+             <Layout> 
+                 <zIndex>7</zIndex> 
+             </Layout> 
+             <Colour type="RGB"> 
+               <Red>0</Red> 
+               <Green>0</Green> 
+               <Blue>0</Blue> 
+             </Colour> 
+             <Text/> 
+        </Text> 
+    </Items> 
+</Template> 
+    
