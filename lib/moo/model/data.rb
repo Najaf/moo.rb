@@ -1,7 +1,9 @@
 module Moo
   module Model
     class Data
-      attr_accessor :type, :link_id
+      def type
+        self.class.uncapitalize
+      end
     end
   end
 end
