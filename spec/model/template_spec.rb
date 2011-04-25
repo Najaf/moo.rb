@@ -28,50 +28,50 @@ describe Template do
       @filename = nil
     end
 
-    it "should set filename to provided filename" do
+    it "sets filename to provided filename" do
       t = Template.new @filename
       t.filename.should == @filename
     end
 
-    it "should set product to first word before underscore of filename" do
+    it "sets product to first word before underscore of filename" do
         t = Template.new @filename
         t.product.should == @product
     end
 
-    it "should set code to the basename of the provided filename" do
+    it "sets code to the basename of the provided filename" do
       t = Template.new @filename
       t.code.should == @code
     end
 
-    it "should complain if passed template filename doesn't exist" do
+    it "complains if passed template filename doesn't exist" do
       expect { Template.new '/tmp/non-existant-file' }.should(
         raise_error(ArgumentError, "Template file provided doesn't exist: /tmp/non-existant-file")
       )
     end
   end
 
-  describe 'loaded?' do
+  describe 'Template.loaded?' do
     before do
       Template.unload
     end
-    it "should return false until templates are loaded" do
+    it "returns false until templates are loaded" do
       Template.loaded?.should == false
     end
 
-    it "should return true after templates are loaded" do
+    it "returns true after templates are loaded" do
       Template.load
       Template.loaded?.should == true
     end
 
-    it "should return false after templates have been unloaded" do
+    it "returns false after templates have been unloaded" do
       Template.load
       Template.unload
       Template.loaded?.should == false
     end
   end
 
-  describe 'load' do
-    it "should load all templates" do
+  describe 'Template.load' do
+    it "loads all templates" do
       Template.load
       Template.all.each do |t|
         t.should be_an_instance_of Template
@@ -82,22 +82,22 @@ describe Template do
     end
   end
 
-  describe 'unload' do
-    it "should clear out all template objects"  do
+  describe 'Template.unload' do
+    it "clears out all template objects"  do
       Template.load
       Template.unload
       Template.all.should == nil
     end
   end
 
-  describe 'codes' do
-    it "should load all templates if they haven't been loaded yet" do
+  describe 'Template.codes' do
+    it "loads all templates if they haven't been loaded yet" do
       Template.unload
       Template.codes
       Template.loaded?.should == true
     end
 
-    it 'should contain all  template codes' do
+    it 'contains all template codes' do
       codes = template_codes
       Template.codes.each do |c|
         codes.should include c
@@ -106,23 +106,35 @@ describe Template do
     end
   end
 
-  describe 'with_code' do
-    it "should not complain on a rubbish template code" do
+  describe 'Template.with_code' do
+    it "returns template with the provided code" do
+      Template.with_code('businesscard_full_image_landscape').code.should == 'businesscard_full_image_landscape'
+    end
+    it "doesn't complain on a rubbish template code" do
       expect { Template.with_code 'woof' }.should_not raise_error ArgumentError
     end
-
-    it "should return nil on a rubbish template code" do
+    it "returns nil on a rubbish template code" do
       Template.with_code('woof').should == nil
     end
-
-    it "should load all templates if they haven't been loaded yet" do
+    it "loads all templates if they haven't been loaded yet" do
       Template.unload
       Template.with_code 'woof'
       Template.loaded?.should == true
     end 
+  end
 
-    it "should return template with the provided code" do
-      Template.with_code('businesscard_full_image_landscape').code.should == 'businesscard_full_image_landscape'
+  describe 'load' do
+    it 'complains if the code set by the filename is different to the code in the xml' do
+      t = Template.with_code 'businesscard_full_image_landscape'
+      t.code = 'slartibartfast'
+      expect { t.load }.should(
+        raise_error(StandardError, "template codes 'slartibartfast' and 'businesscard_full_image_landscape' don't match")
+      )
+    end
+  end
+
+  describe 'to_xml' do
+    it "loads the templates xml if it hasn't been loaded already" do
     end
   end
 end

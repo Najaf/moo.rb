@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'nokogiri'
 module Moo
   module Model
     class Template
@@ -45,8 +46,11 @@ module Moo
         end
       end
 
-      attr_reader :code, :filename, :product
+      attr_reader :filename, :product, :xml
+      attr_accessor :code
 
+      # get the filename, check it exists, but don't load it up
+      # until we need to
       def initialize(template_filename)
         unless File.exists? template_filename
           raise ArgumentError, "Template file provided doesn't exist: #{template_filename}"
@@ -54,6 +58,15 @@ module Moo
         @filename = template_filename
         @code = File.basename @filename, '.xml'
         @product = @code.split('_')[0]
+      end
+
+      # load the data from the file into the object
+      def load
+        doc = Nokogiri::XML(open(filename))
+        xml_template_code = doc.css('Code')[0].content
+        unless code == xml_template_code
+          raise StandardError, "template codes '#{code}' and '#{xml_template_code}' don't match"
+        end
       end
     end
   end
