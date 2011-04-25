@@ -1,0 +1,76 @@
+
+<?xml version="1.0" encoding="UTF-8"?> 
+<Template xmlns="http://www.moo.com/xsd/template-1.0"> 
+    <Code>sticker_image</Code> 
+    <Version>1</Version> 
+    <Settings> 
+        <Units type="millimetres" /> 
+        <Origin orientation="top-left" offsetX="0" offsetY="0" /> 
+        <PrintArea> 
+            <Width>24</Width> 
+            <Height>24</Height> 
+        </PrintArea> 
+        <BleedBox> 
+            <Centre x="12" y="12" /> 
+            <Width>24</Width> 
+            <Height>24</Height> 
+            <Angle>0</Angle> 
+        </BleedBox> 
+        <CutBox> 
+            <Centre x="12" y="12" /> 
+            <Width>22</Width> 
+            <Height>22</Height> 
+            <Angle>0</Angle> 
+        </CutBox> 
+        <SafeAreaBox> 
+            <!--  assume safe area matches bleed for now @ 1mm --> 
+            <Centre x="12" y="12" /> 
+            <Width>20</Width> 
+            <Height>20</Height> 
+            <Angle>0</Angle> 
+        </SafeAreaBox> 
+        <RotationAngle>270</RotationAngle> 
+        <FontSubstitutionStrategy>lineByLine</FontSubstitutionStrategy> 
+    </Settings> 
+    <Items> 
+        <Image> 
+            <LinkId>variable_image_front</LinkId> 
+            <ClippingBox> 
+                <Centre x="12" y="12" /> 
+                <Width>24</Width> 
+                <Height>24</Height> 
+                <Angle>0</Angle> 
+            </ClippingBox> 
+            <Constraints> 
+                <TopEdge outside="true" betweenBleedAndCut="true" betweenCutAndSafe="true" insideSafe="true" /> 
+                <LeftEdge outside="true" betweenBleedAndCut="true" betweenCutAndSafe="true" insideSafe="true" /> 
+                <BottomEdge outside="true" betweenBleedAndCut="true" betweenCutAndSafe="true" insideSafe="true" /> 
+                <RightEdge outside="true" betweenBleedAndCut="true" betweenCutAndSafe="true" insideSafe="true" /> 
+            </Constraints> 
+            <Layout> 
+                <zIndex>1</zIndex> 
+            </Layout> 
+        </Image> 
+        <FixedImage> 
+            <LinkId>moo_rounded_corners</LinkId> 
+            <ClippingBox> 
+                <Centre x="12" y="12" /> 
+                <Width>24</Width> 
+                <Height>24</Height> 
+                <Angle>0</Angle> 
+            </ClippingBox> 
+            <Constraints /> 
+            <Layout> 
+                <zIndex>100</zIndex> 
+            </Layout> 
+            <ImageBox> 
+                <Centre x="12" y="12" /> 
+                <Width>24</Width> 
+                <Height>24</Height> 
+                <Angle>0</Angle> 
+            </ImageBox> 
+            <ResourceURI>assets:sticker/clips/roundrect.png</ResourceURI> 
+        </FixedImage> 
+    </Items> 
+</Template> 
+    

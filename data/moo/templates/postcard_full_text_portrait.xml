@@ -1,0 +1,76 @@
+
+<?xml version="1.0" encoding="UTF-8"?> 
+<Template xmlns="http://www.moo.com/xsd/template-1.0"> 
+    <Code>postcard_full_details_image_portrait</Code> 
+    <Version>1</Version> 
+    <Settings> 
+        <Units type="millimetres" /> 
+        <Origin orientation="top-left" offsetX="0" offsetY="0" /> 
+        <PrintArea> 
+            <Width>109</Width> 
+            <Height>152</Height> 
+        </PrintArea> 
+        <BleedBox> 
+            <Centre x="54.5" y="76" /> 
+            <Width>109</Width> 
+            <Height>152</Height> 
+            <Angle>0</Angle> 
+        </BleedBox> 
+        <CutBox> 
+            <Centre x="54.5" y="76" /> 
+            <Width>105</Width> 
+            <Height>148</Height> 
+            <Angle>0</Angle> 
+        </CutBox> 
+        <SafeAreaBox> 
+            <!--  assume safe area matches bleed for now @ 2mm --> 
+            <Centre x="54.5" y="76" /> 
+            <Width>101</Width> 
+            <Height>144</Height> 
+            <Angle>0</Angle> 
+        </SafeAreaBox> 
+        <RotationAngle>270</RotationAngle> 
+        <FontSubstitutionStrategy>allLinesIfAnyNeeded</FontSubstitutionStrategy> 
+    </Settings> 
+    <Items> 
+        <Box> 
+            <LinkId>background_box</LinkId> 
+            <ClippingBox> 
+               <Centre x="54.5" y="76" /> 
+                <Width>109</Width> 
+                <Height>152</Height> 
+               <Angle>0</Angle> 
+            </ClippingBox> 
+             <Colour type="CMYK"> 
+                <Cyan>0</Cyan> 
+                <Magenta>0</Magenta> 
+                <Yellow>0</Yellow> 
+                <Black>0</Black> 
+             </Colour> 
+            <Filled>true</Filled> 
+            <Layout> 
+                <zIndex>0</zIndex> 
+            </Layout> 
+        </Box> 
+        <Image> 
+            <LinkId>variable_image_back</LinkId> 
+            <ClippingBox> 
+                <Centre x="54.5" y="76" /> 
+                <Width>109</Width> 
+                <Height>152</Height> 
+                <Angle>0</Angle> 
+            </ClippingBox> 
+            <Constraints> 
+                <TopEdge outside="true" betweenBleedAndCut="true" betweenCutAndSafe="true" insideSafe="true" /> 
+                <LeftEdge outside="true" betweenBleedAndCut="true" betweenCutAndSafe="true" insideSafe="true" /> 
+                <BottomEdge outside="true" betweenBleedAndCut="true" betweenCutAndSafe="true"
+                    insideSafe="true" /> 
+                <RightEdge outside="true" betweenBleedAndCut="true" betweenCutAndSafe="true"
+                    insideSafe="true" /> 
+            </Constraints> 
+            <Layout> 
+                <zIndex>1</zIndex> 
+            </Layout> 
+        </Image> 
+    </Items> 
+</Template>
