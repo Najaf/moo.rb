@@ -121,6 +121,12 @@ describe Moo::Model::Colour do
         raise_error ArgumentError, 'tried to set r to non-numeric value'
       )
     end
+    it 'should complain if value is out of range 0 - 255' do
+      c = Colour.new
+      expect { c.r = 276.543  }.should(
+        raise_error ArgumentError, 'value 276.543 out of range, must be between 0 and 255 inclusive'
+      )
+    end
   end
 
   describe 'g=' do
@@ -135,6 +141,12 @@ describe Moo::Model::Colour do
         raise_error ArgumentError, 'tried to set g to non-numeric value'
       )
     end
+    it 'should complain if value is out of range 0 - 255' do
+      c = Colour.new
+      expect { c.g = 276.543  }.should(
+        raise_error ArgumentError, 'value 276.543 out of range, must be between 0 and 255 inclusive'
+      )
+    end
   end
 
   describe 'b=' do
@@ -147,6 +159,12 @@ describe Moo::Model::Colour do
       c = Colour.new
       expect { c.b = 'blah' }.should(
         raise_error ArgumentError, 'tried to set b to non-numeric value'
+      )
+    end
+    it 'should complain if value is out of range 0 - 255' do
+      c = Colour.new
+      expect { c.b = 276.543  }.should(
+        raise_error ArgumentError, 'value 276.543 out of range, must be between 0 and 255 inclusive'
       )
     end
   end
