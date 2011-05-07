@@ -1,6 +1,8 @@
+require 'moo/model/text_data'
+
 module Moo
   module Model
-    class MultiLineTextData < Data
+    class MultiLineTextData < TextData
     end
   end
 end
