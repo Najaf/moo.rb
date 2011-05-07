@@ -1,3 +1,4 @@
+require 'json'
 module Moo
   module Model
     class Font
@@ -36,6 +37,21 @@ module Moo
           raise ArgumentError, "font family must be on of accepted list, '#{value}' given"
         end
         @family = value
+      end
+
+      def to_json
+        {
+          :fontFamily => @family,
+          :bold       => @bold,
+          :italic     => @italic
+        }.to_json
+      end
+
+      def from_json(json)
+        hash = JSON.parse(json, :symbolize_names => true)
+        @family = hash[:fontFamily]
+        @bold   = hash[:bold]
+        @italic = hash[:italic]
       end
     end
   end
