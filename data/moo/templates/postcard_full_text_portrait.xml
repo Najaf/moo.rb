@@ -1,7 +1,7 @@
 
 <?xml version="1.0" encoding="UTF-8"?> 
 <Template xmlns="http://www.moo.com/xsd/template-1.0"> 
-    <Code>postcard_full_details_image_portrait</Code> 
+    <Code>postcard_full_text_portrait</Code> 
     <Version>1</Version> 
     <Settings> 
         <Units type="millimetres" /> 
