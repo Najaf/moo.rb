@@ -9,8 +9,8 @@ module Moo
       end
 
       def centre=value
-        unless value.is_a? Array or value.is_a? Hash
-          raise ArgumentError, "value must be a hash or an array, #{value.class} given"
+        unless value.is_a? Enumerable
+          raise ArgumentError, "value must be Enumerable, #{value.class} given"
         end
         @centre = value
       end

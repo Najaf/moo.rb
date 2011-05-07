@@ -28,13 +28,13 @@ describe Moo::Model::BoundingBox do
       b.centre = [47,324.928]
       b.centre.should == [47,324.928]
     end
-    it "complains when value isn't a hash or array" do
+    it "complains when value isn't enumerable" do
       b = BoundingBox.new
       expect { b.centre = 'hello world' }.should(
-        raise_error ArgumentError, "value must be a hash or an array, String given"
+        raise_error ArgumentError, "value must be Enumerable, String given"
       )
       expect { b.centre = 25 }.should(
-        raise_error ArgumentError, "value must be a hash or an array, Fixnum given"
+        raise_error ArgumentError, "value must be Enumerable, Fixnum given"
       )
     end
   end
