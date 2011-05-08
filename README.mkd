@@ -7,7 +7,7 @@ This gem is still very much a work in progress.
 
 TODO:
 
-1. <strike>Flesh out the model to include various types of Side Data</trike>
+1. <strike>Flesh out the model to include various types of Side Data</strike>
 2. Make everything in the model `to_json`able in a nice, API friendly way
 3. Wrap up all the pack model complexity in nice Product classes
 4. Create the client classes to deal with auth, requests and responses with the API
