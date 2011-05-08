@@ -1,3 +1,4 @@
+require 'json'
 module Moo
   module Model
     class Colour
@@ -44,6 +45,36 @@ module Moo
       def b=value
         validate_numeric 'b', value, 0, 255
         @b = value
+      end
+
+      def to_json
+        if @type == 'RGB'
+          {
+            :type => 'RGB',
+            :r    => @r,
+            :g    => @g,
+            :b    => @b
+          }.to_json
+        elsif @type == 'CMYK'
+          {
+            :type => 'CMYK',
+            :c    => @c,
+            :m    => @m,
+            :y    => @y,
+            :k    => @k
+          }.to_json
+        end
+      end
+
+      def from_json json
+        hash = JSON.parse json, :symbolize_names => true
+        keys = [:type]
+        if hash[:type] == 'RGB'
+          keys << :r << :g << :b
+        elsif hash[:type] == 'CMYK'
+          keys << :c << :m << :y << :k
+        end
+        keys.each { |k| send (k.to_s + '=').to_sym, hash[k] }
       end
 
       private

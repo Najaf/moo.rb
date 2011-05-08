@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'json'
 
 include Moo::Model
 
@@ -166,6 +167,71 @@ describe Moo::Model::Colour do
       expect { c.b = 276.543  }.should(
         raise_error ArgumentError, 'value 276.543 out of range, must be between 0 and 255 inclusive'
       )
+    end
+  end
+
+  describe "to_json" do
+    it "should reflect the values set on the colour object" do
+      json = {
+        :type => 'RGB',
+        :r    => 100,
+        :g    => 150,
+        :b    => 200
+      }.to_json
+      c = Colour.new
+      c.type = 'rgb'
+      c.r = 100
+      c.g = 150
+      c.b = 200
+      c.to_json.should == json
+      
+      json = {
+        :type => 'CMYK',
+        :c => 50,
+        :m => 60,
+        :y => 70,
+        :k => 80
+      }.to_json
+
+      c = Colour.new
+      c.type = 'cmyk'
+      c.c = 50
+      c.m = 60
+      c.y = 70
+      c.k = 80
+
+      c.to_json.should == json
+    end
+  end
+
+  describe "from_json" do
+    it "should load values into a colour from json" do
+      json = {
+        :type => 'CMYK',
+        :c => 50,
+        :m => 60,
+        :y => 70,
+        :k => 80
+      }.to_json
+      c = Colour.new
+      c.from_json(json)
+      c.type.should == 'CMYK'
+      c.c.should == 50
+      c.m.should == 60
+      c.y.should == 70
+      c.k.should == 80
+
+      json = {
+        :type => 'RGB',
+        :r    => 100,
+        :g    => 150,
+        :b    => 200
+      }.to_json
+      c.from_json json
+      c.type.should == 'RGB'
+      c.r.should == 100
+      c.g.should == 150
+      c.b.should == 200
     end
   end
 end
