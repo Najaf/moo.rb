@@ -79,4 +79,38 @@ describe Moo::Model::TextData do
       expect { @d.alignment = 'center' }.should_not raise_error ArgumentError
     end
   end
+
+  describe 'to_json' do
+    it 'represents the data set on the textData object' do
+      @d.link_id = 'some_link_id'
+      @d.text = "A rather long and convoluted text string... or is it?"
+      @d.point_size = 12.347
+      @d.alignment = :left
+
+      font = Font.new
+      font.family = 'arial'
+      font.bold = true
+      font.italic = false
+
+      colour = Colour.new
+      colour.type = 'rgb'
+      colour.r = 123
+      colour.g = 234
+      colour.b = 243
+
+      @d.font = font
+      @d.colour = colour
+
+      expected_json = {
+        :type => 'textData',
+        :linkId => 'some_link_id',
+        :pointSize => 12.347,
+        :alignment => :left,
+        :font => font.to_hash,
+        :colour => colour.to_hash
+      }.to_json
+
+      @d.to_json.should == expected_json
+    end
+  end
 end

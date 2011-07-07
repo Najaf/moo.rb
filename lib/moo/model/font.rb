@@ -40,11 +40,15 @@ module Moo
       end
 
       def to_json
+        to_hash.to_json
+      end
+
+      def to_hash
         {
           :fontFamily => @family,
           :bold       => @bold,
           :italic     => @italic
-        }.to_json
+        }
       end
 
       def from_json(json)

@@ -4,6 +4,7 @@ module Moo
   module Model
     class TextData < Data
       attr_reader :font, :colour, :point_size, :alignment
+      attr_accessor :text
 
       def font=value
         unless value.kind_of? Font
@@ -31,6 +32,21 @@ module Moo
           raise ArgumentError, "alignment must be one of :left, :right or :center"
         end
         @alignment = value
+      end
+
+      def to_json
+        to_hash.to_json
+      end
+
+      def to_hash
+        {
+          :type => type,
+          :linkId => link_id,
+          :pointSize => point_size,
+          :alignment => alignment,
+          :font => font.to_hash,
+          :colour => colour.to_hash
+        }
       end
 
     end
