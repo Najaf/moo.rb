@@ -62,4 +62,25 @@ describe Moo::Model::BoxData do
       bd.to_json.should == expected_json
     end
   end
+
+  describe 'from_json' do
+    it 'should set values on boxdata based on passed in json' do
+      c= Colour.new
+      c.type = 'rgb'
+      c.r = 100
+      c.g = 150
+      c.b = 200
+
+      json = {
+        :linkId => 'woof_woof',
+        :type => 'boxData',
+        :colour => c.to_hash
+      }.to_json
+      bd = BoxData.new
+      bd.from_json(json)
+      bd.colour.to_hash.should == c.to_hash
+      bd.type.should == 'boxData'
+      bd.link_id.should == 'woof_woof'
+    end
+  end
 end
