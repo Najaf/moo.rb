@@ -53,9 +53,6 @@ describe Moo::Model::Side do
       side.template_code = 'businesscard_full_image_landscape'
       side.template_code.should == 'businesscard_full_image_landscape'
     end
-
-    it "should return code of set template if template has been set" do
-    end
   end
 
 end
