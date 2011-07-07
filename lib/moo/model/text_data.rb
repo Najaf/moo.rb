@@ -31,7 +31,7 @@ module Moo
         unless [:left, :right, :center].include? value.to_sym
           raise ArgumentError, "alignment must be one of :left, :right or :center"
         end
-        @alignment = value
+        @alignment = value.to_sym
       end
 
       def to_json
@@ -47,6 +47,17 @@ module Moo
           :font => font.to_hash,
           :colour => colour.to_hash
         }
+      end
+
+      def from_json json
+        hash = JSON.parse(json, :symbolize_names => true)
+        self.link_id =  hash[:linkId]
+        self.point_size = hash[:pointSize]
+        self.alignment = hash[:alignment].to_sym
+        self.font = Font.new
+        self.font.from_json(hash[:font].to_json)
+        self.colour = Colour.new
+        self.colour.from_json(hash[:colour].to_json)
       end
 
     end

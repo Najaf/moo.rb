@@ -113,4 +113,34 @@ describe Moo::Model::TextData do
       @d.to_json.should == expected_json
     end
   end
+
+  describe 'from_json' do
+    it 'sets values on text data based on json string' do
+      font = Font.new
+      font.family = 'arial'
+      font.bold = true
+      font.italic = false
+
+      colour = Colour.new
+      colour.type = 'rgb'
+      colour.r = 123
+      colour.g = 234
+      colour.b = 243
+
+      json = {
+        :linkId => 'some_other_link_id',
+        :pointSize => 12.347,
+        :alignment => :left,
+        :font => font.to_hash,
+        :colour => colour.to_hash
+      }.to_json
+
+      @d.from_json json
+      @d.link_id.should == 'some_other_link_id'
+      @d.point_size.should == 12.347
+      @d.alignment.should == :left
+      @d.font.to_hash.should == font.to_hash
+      @d.colour.to_hash.should == colour.to_hash
+    end
+  end
 end

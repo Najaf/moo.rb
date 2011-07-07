@@ -17,7 +17,6 @@ JSONABLE
 
 The following classes still need to have their `to_json` methods tested and implemented:
 
-* \[multi_line_\]text_data.rb
 * card.rb (no tests at all)
 * fixed_image_data.rb
 * image_data.rb
