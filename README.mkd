@@ -13,3 +13,14 @@ TODO:
 4. Create the client classes to deal with auth, requests and responses with the API
 5. [optional] make a kerrazy ruby dsl for creating cards/packs
 
+JSONABLE
+
+The following classes still need to have their `to_json` methods tested and implemented:
+
+* box_data.rb
+* card.rb (no tests at all)
+* fixed_image_data.rb
+* image_data.rb
+* \[multi_line_\]text_data.rb
+* side.rb
+* pack.rb
