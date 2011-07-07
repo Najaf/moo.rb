@@ -1,3 +1,4 @@
+require 'json'
 module Moo
   module Model
     class BoxData < Data
@@ -8,6 +9,14 @@ module Moo
           raise ArgumentError, "expected Colour, got '#{value.class}'"
         end
         @colour = value
+      end
+
+      def to_json
+        {
+            :linkId => link_id,
+            :type => 'boxData',
+            :colour => colour.to_hash
+        }.to_json
       end
     end
   end

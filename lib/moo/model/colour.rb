@@ -48,21 +48,25 @@ module Moo
       end
 
       def to_json
+        self.to_hash.to_json
+      end
+
+      def to_hash
         if @type == 'RGB'
-          {
+          return {
             :type => 'RGB',
             :r    => @r,
             :g    => @g,
             :b    => @b
-          }.to_json
+          }
         elsif @type == 'CMYK'
-          {
+          return {
             :type => 'CMYK',
             :c    => @c,
             :m    => @m,
             :y    => @y,
             :k    => @k
-          }.to_json
+          }
         end
       end
 

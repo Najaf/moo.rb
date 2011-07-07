@@ -35,4 +35,31 @@ describe Moo::Model::BoxData do
       expect { d.colour = 'woof woof' }.should raise_error ArgumentError
     end
   end
+
+  describe 'to_json' do
+    it 'should reflect the values set on the boxdata object' do
+      c= Colour.new
+      c.type = 'rgb'
+      c.r = 100
+      c.g = 150
+      c.b = 200
+
+      bd = BoxData.new
+      bd.link_id = 'woof_woof'
+      bd.colour = c
+
+      expected_json = {
+        :linkId => 'woof_woof',
+        :type => 'boxData',
+        :colour => {
+          :type => 'RGB',
+          :r    => 100,
+          :g    => 150,
+          :b    => 200
+        }
+      }.to_json
+
+      bd.to_json.should == expected_json
+    end
+  end
 end
