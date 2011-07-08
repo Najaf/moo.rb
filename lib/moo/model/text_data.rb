@@ -39,14 +39,15 @@ module Moo
       end
 
       def to_hash
-        {
+        hash = {
           :type => type,
           :linkId => link_id,
-          :pointSize => point_size,
-          :alignment => alignment,
-          :font => font.to_hash,
-          :colour => colour.to_hash
         }
+        hash[:pointSize] = point_size unless point_size.nil?
+        hash[:alignment] = alignment unless point_size.nil?
+        hash[:font] = font.to_hash unless font.nil?
+        hash[:colour] = colour.to_hash unless colour.nil?
+        hash
       end
 
       def from_json json

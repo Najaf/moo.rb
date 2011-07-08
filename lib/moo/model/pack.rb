@@ -1,13 +1,14 @@
 module Moo
   module Model
     class Pack
-      attr_accessor :cards, :sides, :product_code
+      attr_accessor :cards, :sides, :product_code, :product_version
 
       PRODUCT_CODES = ['businesscard', 'minicard', 'postcard', 'holidaycard', 'sticker'].freeze
 
       def initialize
         @cards = []
         @sides = []
+        @product_version = 0
       end
 
       def product_code=code
@@ -17,6 +18,19 @@ module Moo
           )
         end
         @product_code = code
+      end
+
+      def to_json
+        to_hash.to_json
+      end
+
+      def to_hash
+        {
+          numCards: 100,
+          productCode: product_code,
+          productVersion: product_version,
+          sides: sides.map {|s| s.to_hash }
+        }
       end
     end
   end
