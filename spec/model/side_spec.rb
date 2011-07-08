@@ -55,6 +55,50 @@ describe Moo::Model::Side do
     end
   end
 
+  describe 'to_json' do
+    it 'outputs a json representation of a side object' do
+      expected_json = {
+                sideNum:4,
+                templateCode:"minicard_full_image_portrait",
+                type:"image",
+                data:[
+                    {
+                        type:"imageData",
+                        linkId:"variable_image_front",
+                        imageBox:{
+                            center:{
+                                x:11.5384615385,
+                                y:37
+                            },
+                            width:55.5,
+                            height:74,
+                            angle:0
+                        },
+                        resourceUri:"http://farm2.static.flickr.com/1382/4609720520_b321f27011_o.jpg",
+                        enhance:false
+                    }
+                ]
+            }.to_json
+      i = ImageData.new
+      i.link_id = 'variable_image_front'
+      i.resource_uri = 'http://farm2.static.flickr.com/1382/4609720520_b321f27011_o.jpg'
+      i.enhance = false
+      b = BoundingBox.new
+      b.centre = [11.5384615385, 37]
+      b.width = 55.5
+      b.height = 74
+      b.angle = 0
+      i.image_box = b
+     
+      s = Side.new
+      s.data << i
+      s.side_num = 4
+      s.template_code = 'minicard_full_image_portrait'
+      s.type = 'image'
+      s.to_json.should == expected_json
+    end
+  end
+
   describe "from_json" do
     it "sets data on a side from a json string" do
       #stole this right out of the api internal tool, better work!

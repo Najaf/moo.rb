@@ -5,6 +5,10 @@ module Moo
     class Side
       attr_accessor :template, :data, :type, :pack, :side_num
 
+      def initialize
+        @data = []
+      end
+
       def type=new_type
         unless ['image', 'details'].include? new_type
           raise ArgumentError, "type must be either 'image' or 'details'"
@@ -30,6 +34,19 @@ module Moo
       def template_code
         return nil if @template.nil?
         @template.code
+      end
+
+      def to_json
+        to_hash.to_json
+      end
+
+      def to_hash
+        hash = {
+          sideNum:  side_num,
+          templateCode:  template_code,
+          type: type,
+          data: data.map { |d| d.to_hash }
+        }
       end
 
       def from_json json

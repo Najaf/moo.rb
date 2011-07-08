@@ -34,14 +34,15 @@ module Moo
       end
 
       def to_hash
-        {
+        hash = {
           type: type,
           linkId: link_id,
           imageBox: image_box.to_hash,
           resourceUri: resource_uri,
-          imageStoreFileId: image_store_file_id,
-          enhance: enhance
         }
+        hash[:imageStoreFileId] = image_store_file_id unless image_store_file_id.nil?
+        hash[:enhance] = enhance
+        hash
       end
 
       def from_hash hash

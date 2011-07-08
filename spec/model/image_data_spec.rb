@@ -97,7 +97,6 @@ describe Moo::Model::ImageData do
         linkId: "some_link_id",
         imageBox: b.to_hash,
         resourceUri: 'abc://123',
-        imageStoreFileId: nil,
         enhance: false
       }.to_json
 
