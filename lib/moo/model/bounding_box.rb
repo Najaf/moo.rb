@@ -10,6 +10,10 @@ module Moo
       end
 
       def to_json
+        to_hash.to_json
+      end
+
+      def to_hash
         {
           :center => {
             :x => @centre[0],
@@ -18,7 +22,7 @@ module Moo
           :width  => @width,
           :height => @height,
           :angle  => @angle
-        }.to_json
+        }
       end
 
       def from_json(json)
