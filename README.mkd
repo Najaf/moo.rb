@@ -19,6 +19,5 @@ The following classes still need to have their `to_json` methods tested and impl
 
 * card.rb (no tests at all)
 * fixed_image_data.rb
-* image_data.rb
 * side.rb
 * pack.rb
