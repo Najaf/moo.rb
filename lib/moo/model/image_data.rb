@@ -50,7 +50,7 @@ module Moo
         b.from_json(hash[:imageBox].to_json)
         self.image_box = b
         self.resource_uri = hash[:resourceUri]
-        self.image_store_file_id = hash[:imageStoreFileId]
+        self.image_store_file_id = hash[:imageStoreFileId] if hash[:imageStoreFileId]
         self.enhance = hash[:enhance]
       end
 

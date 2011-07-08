@@ -3,7 +3,7 @@ require 'moo/model/template'
 module Moo
   module Model
     class Side
-      attr_accessor :template, :data, :type, :pack
+      attr_accessor :template, :data, :type, :pack, :side_num
 
       def type=new_type
         unless ['image', 'details'].include? new_type
@@ -30,6 +30,24 @@ module Moo
       def template_code
         return nil if @template.nil?
         @template.code
+      end
+
+      def from_json json
+        from_hash(JSON.parse(json, :symbolize_names => true))
+      end
+
+      def from_hash hash
+        self.side_num = hash[:sideNum]
+        self.template_code = hash[:templateCode]
+        self.type = hash[:type]
+        self.data = hash[:data].map {|d| data_from_hash  d }
+      end
+
+      def data_from_hash(hash)
+        klass = hash[:type].gsub(/\b\w/){|s|s.upcase} 
+        data = eval(klass).new
+        data.from_hash hash
+        data
       end
 
     end
