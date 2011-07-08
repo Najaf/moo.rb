@@ -76,5 +76,34 @@ describe Moo::Model::ImageData do
       expect { d.enhance = 'woof woof' }.should raise_error ArgumentError
     end
   end
+
+  describe "to_json" do
+    it "should represent the data in an image_data object" do
+      d = ImageData.new
+
+      b = BoundingBox.new
+      b.centre = [20,40]
+      b.width = 20
+      b.height = 30
+      b.angle = 40
+      d.image_box = b
+
+      d.link_id = 'some_link_id'
+      d.resource_uri = 'abc://123'
+      d.enhance = false
+      
+      expected_json = {
+        type: "imageData",
+        linkId: "some_link_id",
+        imageBox: b.to_hash,
+        resourceUri: 'abc://123',
+        imageStoreFileId: nil,
+        enhance: false
+      }.to_json
+
+      d.to_json.should == expected_json
+
+    end
+  end
 end
 

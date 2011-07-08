@@ -28,6 +28,21 @@ module Moo
         end
         @enhance = value
       end
+
+      def to_json
+        to_hash.to_json
+      end
+
+      def to_hash
+        {
+          type: type,
+          linkId: link_id,
+          imageBox: image_box.to_hash,
+          resourceUri: resource_uri,
+          imageStoreFileId: image_store_file_id,
+          enhance: enhance
+        }
+      end
     end
   end
 end
