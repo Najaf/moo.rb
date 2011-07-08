@@ -35,4 +35,34 @@ describe Moo::Model::FixedImageData do
       expect { d.resource_uri = 12 }.should raise_error ArgumentError
     end
   end
+
+  describe 'to_json' do
+    it 'represents FixedImageData object as json' do
+      d = FixedImageData.new
+      expected_json = {
+        type: d.type,
+        linkId: 'fixed_image_link_id',
+        resourceUri: 'abc://123'
+      }.to_json
+      
+      d.link_id = 'fixed_image_link_id'
+      d.resource_uri = 'abc://123'
+
+      d.to_json.should == expected_json
+    end
+  end
+
+  describe 'from_json' do
+    it 'sets fixed image data based on json' do
+      d = FixedImageData.new
+      json = {
+        type: d.type,
+        linkId: 'blah_bleeh_blooh',
+        resourceUri: 'waah-weeh-wooh'
+      }.to_json
+      d.from_json json
+      d.link_id.should == 'blah_bleeh_blooh'
+      d.resource_uri.should == 'waah-weeh-wooh'
+    end
+  end
 end
