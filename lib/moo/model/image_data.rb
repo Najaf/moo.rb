@@ -43,6 +43,20 @@ module Moo
           enhance: enhance
         }
       end
+
+      def from_hash hash
+        self.link_id = hash[:linkId]
+        b = BoundingBox.new
+        b.from_json(hash[:imageBox].to_json)
+        self.image_box = b
+        self.resource_uri = hash[:resourceUri]
+        self.image_store_file_id = hash[:imageStoreFileId]
+        self.enhance = hash[:enhance]
+      end
+
+      def from_json json
+        from_hash(JSON.parse(json, :symbolize_names => true))
+      end
     end
   end
 end

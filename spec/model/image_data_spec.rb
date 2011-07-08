@@ -105,5 +105,32 @@ describe Moo::Model::ImageData do
 
     end
   end
+
+  describe "from_json" do
+    it "loads data into an ImageData object from a json string" do
+      b = BoundingBox.new
+      b.centre = [20,40]
+      b.width = 20
+      b.height = 30
+      b.angle = 40
+
+      json = {
+        type: "imageData",
+        linkId: "some_link_id",
+        imageBox: b.to_hash,
+        resourceUri: 'abc://123',
+        imageStoreFileId: 'wxyz-blah-blah',
+        enhance: true
+      }.to_json
+
+      d = ImageData.new
+      d.from_json json
+      d.image_box.to_hash.should == b.to_hash
+      d.link_id.should == 'some_link_id'
+      d.resource_uri.should == 'abc://123'
+      d.image_store_file_id.should == 'wxyz-blah-blah'
+      d.enhance.should == true
+    end
+  end
 end
 
