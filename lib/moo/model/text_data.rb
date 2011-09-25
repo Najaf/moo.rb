@@ -7,7 +7,7 @@ module Moo
       attr_accessor :text
 
       def initialize
-        yield if block_given?
+        yield self if block_given?
       end
 
       def font=value

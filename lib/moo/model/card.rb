@@ -5,7 +5,7 @@ module Moo
       attr_accessor :image_side, :details_side
 
       def initialize
-        yield if block_given?
+        yield self if block_given?
       end
     end
   end

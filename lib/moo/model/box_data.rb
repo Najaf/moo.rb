@@ -5,7 +5,7 @@ module Moo
       attr_reader :colour
 
       def initialize
-        yield if block_given?
+        yield self if block_given?
       end
 
       def colour=(value)

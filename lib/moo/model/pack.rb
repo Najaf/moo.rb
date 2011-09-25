@@ -9,7 +9,7 @@ module Moo
         @cards = []
         @sides = []
         @product_version = 0
-        yield if block_given?
+        yield self if block_given?
       end
 
       def product_code=code

@@ -4,7 +4,7 @@ module Moo
       attr_reader :resource_uri
 
       def initialize
-        yield if block_given?
+        yield self if block_given?
       end
 
       def resource_uri=value

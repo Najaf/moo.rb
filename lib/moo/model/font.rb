@@ -27,7 +27,7 @@ module Moo
         @family = @@default_family
         @bold = false
         @italic = false
-        yield if block_given?
+        yield self if block_given?
       end
 
       alias_method :bold?,   :bold
