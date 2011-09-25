@@ -46,6 +46,7 @@ module Moo
         hash = {
           :type => type,
           :linkId => link_id,
+          :text   => text
         }
         hash[:pointSize] = point_size unless point_size.nil?
         hash[:alignment] = alignment unless point_size.nil?
@@ -57,6 +58,7 @@ module Moo
       def from_json json
         hash = JSON.parse(json, :symbolize_names => true)
         self.link_id =  hash[:linkId]
+        self.text  = hash[:text]
         self.point_size = hash[:pointSize]
         self.alignment = hash[:alignment].to_sym
         self.font = Font.new
