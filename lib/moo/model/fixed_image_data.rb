@@ -3,6 +3,10 @@ module Moo
     class FixedImageData < Data
       attr_reader :resource_uri
 
+      def initialize
+        yield if block_given?
+      end
+
       def resource_uri=value
         unless value.is_a? String
           raise ArgumentError, "expected String, got a #{value.class}"

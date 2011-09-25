@@ -6,6 +6,10 @@ module Moo
       attr_reader :font, :colour, :point_size, :alignment
       attr_accessor :text
 
+      def initialize
+        yield if block_given?
+      end
+
       def font=value
         unless value.kind_of? Font
           raise ArgumentError, "expected Font, got '#{value.class}'"

@@ -4,6 +4,10 @@ module Moo
     class BoxData < Data
       attr_reader :colour
 
+      def initialize
+        yield if block_given?
+      end
+
       def colour=(value)
         unless value.kind_of? Colour
           raise ArgumentError, "expected Colour, got '#{value.class}'"

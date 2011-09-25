@@ -7,6 +7,7 @@ module Moo
       def initialize
         @centre = [0,0]
         @width, @height, @angle = 0, 0, 0
+        yield if block_given?
       end
 
       def to_json

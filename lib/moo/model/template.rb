@@ -3,8 +3,6 @@ require 'nokogiri'
 module Moo
   module Model
     class Template
-
-      
       class << self
         attr_reader :all
 

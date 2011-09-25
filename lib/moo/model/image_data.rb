@@ -5,6 +5,7 @@ module Moo
 
       def initialize
         @enhance = false
+        yield if block_given?
       end
 
       def image_box=value

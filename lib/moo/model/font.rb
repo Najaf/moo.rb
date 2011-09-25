@@ -3,6 +3,7 @@ module Moo
   module Model
     class Font
       attr_accessor :family, :bold, :italic
+
       ACCEPTED_FAMILIES = [
         'arial',
         'avantgarde',
@@ -19,11 +20,14 @@ module Moo
         'router',
         'vagrounded'
       ]
+
       @@default_family = 'helvetica'
+
       def initialize
         @family = @@default_family
         @bold = false
         @italic = false
+        yield if block_given?
       end
 
       alias_method :bold?,   :bold

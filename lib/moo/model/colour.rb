@@ -4,6 +4,10 @@ module Moo
     class Colour
       attr_accessor :type, :c, :m, :y, :k, :r, :g, :b
 
+      def initialize
+        yield if block_given?
+      end
+
       def type=new_type
         unless ['cmyk','rgb','CMYK','RGB'].include? new_type
           raise ArgumentError, 

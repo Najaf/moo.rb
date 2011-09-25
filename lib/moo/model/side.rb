@@ -7,6 +7,7 @@ module Moo
 
       def initialize
         @data = []
+        yield if block_given?
       end
 
       def type=new_type
