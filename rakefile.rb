@@ -2,7 +2,7 @@ require 'rake'
 require 'rspec/core/rake_task'
 require 'moo'
 
-gem_version = '0.0.1'
+gem_version = '0.0.2'
 gem_filename = 'moo-' + gem_version + '.gem'
 
 task :default => :rspec

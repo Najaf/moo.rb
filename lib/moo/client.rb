@@ -1,3 +1,4 @@
+require 'oauth'
 module Moo
   class Client
 
