@@ -33,6 +33,14 @@ module Moo
           sides: sides.map {|s| s.to_hash }
         }
       end
+
+      def fill_side_nums
+        counter = 1
+        @sides.reject {|s| s.side_num.is_a? Numeric}.each do |s|
+          s.side_num = counter
+          counter += 1
+        end
+      end
     end
   end
 end
