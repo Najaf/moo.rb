@@ -3,7 +3,7 @@ $:.unshift lib unless $:.include?(lib)
  
 Gem::Specification.new do |s|
   s.name        = "moo"
-  s.version     = "0.0.1"
+  s.version     = "0.0.2"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Najaf Ali"]
   s.email       = ["ali.najaf@gmail.com"]
@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
  
   s.required_rubygems_version = ">= 1.3.6"
 
+  s.add_dependency 'oauth'
   s.add_development_dependency "rspec"
  
   s.files        = Dir.glob("{bin,lib,data}/**/*") + %w(LICENSE README.mkd )
