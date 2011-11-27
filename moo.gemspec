@@ -14,8 +14,9 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.6"
 
   s.add_dependency 'oauth'
+  s.add_dependency 'nokogiri'
   s.add_development_dependency "rspec"
  
-  s.files        = Dir.glob("{bin,lib,data}/**/*") + %w(LICENSE README.mkd )
+  s.files = Dir.glob("{bin,lib,data}/**/*") + %w(LICENSE README.mkd )
   s.require_path = 'lib'
 end
