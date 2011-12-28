@@ -1,81 +1,90 @@
 require 'oauth'
+
 module Moo
   class Client
+    attr_accessor :oauth_consumer, 
+      :oauth_consumer_key, 
+      :oauth_consumer_secret,
+      :oauth_access_token
 
-    def self.oauth_secret=(secret)
-      @@oauth_secret = secret
+    def self.oauth_consumer_secret=(secret)
+      @@oauth_consumer_secret = secret
     end
 
-    def self.oauth_key=(key)
-      @@oauth_key = key
+    def self.oauth_consumer_key=(key)
+      @@oauth_consumer_key = key
     end
 
     def self.config
       yield self if block_given?
     end
 
-
-    attr_accessor :oauth_consumer, :oauth_key, :oauth_secret
-    def initialize(params = nil)
-      unless params.nil?
-        @oauth_secret = params[:oauth_secret]
-        @oauth_key    = params[:oauth_key]
-      end
+    def initialize(options={})
+      @oauth_consumer_secret = options[:oauth_consumer_secret]
+      @oauth_consumer_key = options[:oauth_consumer_key]
 
       yield self if block_given?
 
-      ## set key/secret to default if not set
-      @oauth_secret ||= @@oauth_secret
-      @oauth_key    ||= @@oauth_key
+      # set key/secret to default if not set
+      @oauth_consumer_secret ||= @@oauth_consumer_secret
+      @oauth_consumer_key ||= @@oauth_consumer_key
 
-      ## error if the oauth secret and key have not been set by now
-      unless @oauth_secret && @oauth_key  
-        raise "Moo Client requires OAuth key/secret to be set"
+      # error if the oauth secret and key have not been set by now
+      unless @oauth_consumer_secret and @oauth_consumer_key
+        raise "Moo Client requires OAuth consumer key/secret"
       end
 
-      initialize_oauth_consumer
+      # create the consumer
+      @oauth_consumer ||= OAuth::Consumer.new(
+        @oauth_consumer_key,
+        @oauth_consumer_secret, {
+          site: "https://secure.moo.com",
+          request_token_path: "/oauth/request_token.php",
+          access_token_path: "/oauth/access_token.php",
+          authorize_path: "/oauth/authorize.php" 
+        })
+
+      # create the access token
+      if options[:oauth_access_token] and options[:oauth_access_token_secret]
+        @oauth_access_token ||= OAuth::AccessToken.new(
+          @oauth_consumer, 
+          @oauth_access_token, 
+          @oauth_access_token_secret)
+      end
     end
 
-    # get the initial request token
-    #
-    # clients can authorize this token and get the subsequent access token
-    def get_request_token(callback_or_hash)
-      callback = callback_or_hash.is_a?(String) ? callback_or_hash : callback_or_hash[:callback]
-      @oauth_consumer.get_request_token(
-        oauth_callback: callback
-      )
+    def get_request_token(options)
+      @oauth_consumer.get_request_token(oauth_callback: options[:callback])
     end
 
-    def create_pack(access_token, product_code, pack_json)
-      call_api(access_token, {
-        method:   'moo.pack.createPack',
-        product:  product_code.to_s,
-        pack:     pack_json
+    def create_pack(pack)
+      call({
+        method: "moo.pack.createPack",
+        product: pack.product_code.to_s,
+        pack: pack.to_json
+      })
+    end
+    
+    def update_pack(pack_id, pack)
+      call({
+        method: "moo.pack.updatedPack",
+        packId: pack_id,
+        pack: pack.to_json
+      })
+    end
+
+    def import_image(image_url)
+      call({
+        method: "moo.image.importImage",
+        imageUrl: image_url
       })
     end
 
     private
-      def initialize_oauth_consumer
-        @oauth_consumer = OAuth::Consumer.new(
-          @oauth_key,
-          @oauth_secret,
-          {
-            site:               "https://secure.moo.com",
-            request_token_path: "/oauth/request_token.php",
-            access_token_path:  "/oauth/access_token.php",
-            authorize_path:     "/oauth/authorize.php" 
-          }
-        )
-      end
-
-      def call_api(access_token, params = {})
-        access_token.post(
-          '/api/service/',
-          params,
-          {
-            'Content-Type' => 'application/json'
-          }
-        )
+      def call(params={})
+        response = oauth_access_token.post("/api/service/", params, { "Content-Type" => "application/json" })
+        JSON.parse(response.body)
       end
   end
 end
+
