@@ -104,6 +104,7 @@ describe Moo::Model::TextData do
       expected_json = {
         :type => 'textData',
         :linkId => 'some_link_id',
+        :text => "A rather long and convoluted text string... or is it?",
         :pointSize => 12.347,
         :alignment => :left,
         :font => font.to_hash,

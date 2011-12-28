@@ -1,5 +1,4 @@
 require 'oauth'
-
 module Moo
   class Client
     attr_accessor :oauth_consumer, 
