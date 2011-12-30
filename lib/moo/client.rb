@@ -1,4 +1,5 @@
 require 'oauth'
+require 'net/http/post/multipart'
 module Moo
   class Client
     attr_accessor :oauth_consumer, 
@@ -46,9 +47,9 @@ module Moo
       # create the access token
       if options[:oauth_access_token] and options[:oauth_access_token_secret]
         @oauth_access_token ||= OAuth::AccessToken.new(
-          @oauth_consumer, 
-          @oauth_access_token, 
-          @oauth_access_token_secret)
+          @oauth_consumer,
+          options[:oauth_access_token],
+          options[:oauth_access_token_secret])
       end
     end
 
@@ -66,10 +67,26 @@ module Moo
     
     def update_pack(pack_id, pack)
       call({
-        method: "moo.pack.updatedPack",
+        method: "moo.pack.updatePack",
         packId: pack_id,
         pack: pack.to_json
       })
+    end
+
+    def upload_image(path)
+      options = {
+        method: "moo.image.uploadImage",
+        imageFile: UploadIO.new(path, "image/jpeg", "image.jpg")
+      }
+      File.open(path) do
+        request = Net::HTTP::Post::Multipart.new("/api/service/", options)
+        http = Net::HTTP.new("secure.moo.com", 443)
+        http.use_ssl = true
+        response = http.start do |net|
+          net.request(request)
+        end
+        JSON.parse(response.body)
+      end
     end
 
     def import_image(image_url)
@@ -81,7 +98,8 @@ module Moo
 
     private
       def call(params={})
-        response = oauth_access_token.post("/api/service/", params, { "Content-Type" => "application/json" })
+        response = oauth_access_token.post(
+          "/api/service/", params, { "Content-Type" => "application/json" })
         JSON.parse(response.body)
       end
   end

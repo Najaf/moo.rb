@@ -1,7 +1,7 @@
 module Moo
   module Model
     class Pack
-      attr_accessor :cards, :sides, :product_code, :product_version, :num_cards
+      attr_accessor :cards, :sides, :product_code, :product_version, :num_cards, :image_basket
 
       PRODUCT_CODES = ['businesscard', 'minicard', 'postcard', 'holidaycard', 'sticker'].freeze
 
@@ -26,12 +26,16 @@ module Moo
       end
 
       def to_hash
-        {
+        hash = {
           numCards: num_cards,
           productCode: product_code,
           productVersion: product_version,
           sides: sides.map {|s| s.to_hash }
         }
+
+        hash[:imageBasket] = image_basket unless image_basket.nil?
+
+        hash
       end
 
       def fill_side_nums
@@ -44,3 +48,4 @@ module Moo
     end
   end
 end
+
