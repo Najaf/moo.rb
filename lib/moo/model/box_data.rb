@@ -21,9 +21,9 @@ module Moo
 
       def to_hash
         {
-            :linkId => link_id,
-            :type => 'boxData',
-            :colour => colour.to_hash
+          :linkId => link_id,
+          :type => 'boxData',
+          :colour => colour.to_hash
         }
       end
 

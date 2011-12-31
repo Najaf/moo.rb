@@ -1,5 +1,4 @@
 require 'moo/model/template'
-
 module Moo
   module Model
     class Side

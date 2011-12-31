@@ -104,4 +104,3 @@ module Moo
       end
   end
 end
-

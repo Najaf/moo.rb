@@ -33,7 +33,7 @@ module Moo
           sides: sides.map {|s| s.to_hash }
         }
 
-        hash[:imageBasket] = image_basket unless image_basket.nil?
+        hash[:imageBasket] = image_basket.to_hash unless image_basket.nil?
 
         hash
       end
@@ -48,4 +48,3 @@ module Moo
     end
   end
 end
-
