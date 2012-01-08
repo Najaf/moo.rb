@@ -74,18 +74,22 @@ module Moo
     end
 
     def upload_image(path)
-      options = {
-        method: "moo.image.uploadImage",
-        imageFile: UploadIO.new(path, "image/jpeg", "image.jpg")
-      }
-      File.open(path) do
-        request = Net::HTTP::Post::Multipart.new("/api/service/", options)
+      File.open(path) do |image|
+        params = {
+          method: "moo.image.uploadImage",
+          imageFile: UploadIO.new(image, "image/jpeg", File.basename(path))
+        }
+        request = Net::HTTP::Post::Multipart.new("/api/service/", params)
         http = Net::HTTP.new("secure.moo.com", 443)
         http.use_ssl = true
         response = http.start do |net|
           net.request(request)
         end
-        JSON.parse(response.body)
+        if response.code == 200
+          JSON.parse(response.body)
+        else
+          handle_error(response)
+        end
       end
     end
 
@@ -100,7 +104,15 @@ module Moo
       def call(params={})
         response = oauth_access_token.post(
           "/api/service/", params, { "Content-Type" => "application/json" })
-        JSON.parse(response.body)
+        if response.code == 200
+          JSON.parse(response.body)
+        else
+          handle_error(response)
+        end
+      end
+
+      def handle_error(response)
+        raise RuntimeError, response.body
       end
   end
 end
