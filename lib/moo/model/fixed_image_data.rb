@@ -30,7 +30,6 @@ module Moo
       def from_json json
         from_hash(JSON.parse(json, :symbolize_names => true))
       end
-      
 
       def from_hash hash
         self.link_id = hash[:linkId]

@@ -81,7 +81,8 @@ module Moo
         }
         request = Net::HTTP::Post::Multipart.new("/api/service/", params)
         http = Net::HTTP.new("www.moo.com", 80)
-        handle_response(http.start {|net| net.request(request) })
+        response = http.start {|net| net.request(request) }
+        handle_response(response)
       end
     end
 
@@ -99,11 +100,12 @@ module Moo
       end
 
       def handle_response(response)
-        response.code.to_s == "200" ? JSON.parse(response.body) : handle_error(response)
-      end
-
-      def handle_error(response)
-        raise RuntimeError, response.body
+        case response.code.to_i
+        when 200
+          JSON.parse(response.body)
+        else
+          raise RuntimeError, response.body
+        end
       end
   end
 end
