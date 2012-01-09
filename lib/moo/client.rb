@@ -35,7 +35,7 @@ module Moo
       end
 
       # create the consumer
-      @oauth_consumer ||= OAuth::Consumer.new(
+      @oauth_consumer = OAuth::Consumer.new(
         @oauth_consumer_key,
         @oauth_consumer_secret, {
           site: "https://secure.moo.com",
@@ -46,7 +46,7 @@ module Moo
 
       # create the access token
       if options[:oauth_access_token] and options[:oauth_access_token_secret]
-        @oauth_access_token ||= OAuth::AccessToken.new(
+        @oauth_access_token = OAuth::AccessToken.new(
           @oauth_consumer,
           options[:oauth_access_token],
           options[:oauth_access_token_secret])
