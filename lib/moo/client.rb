@@ -77,19 +77,11 @@ module Moo
       File.open(path) do |image|
         params = {
           method: "moo.image.uploadImage",
-          imageFile: UploadIO.new(image, "image/jpeg", File.basename(path))
+          imageFile: UploadIO.new(image, "image/jpeg", "image.jpg")
         }
         request = Net::HTTP::Post::Multipart.new("/api/service/", params)
-        http = Net::HTTP.new("secure.moo.com", 443)
-        http.use_ssl = true
-        response = http.start do |net|
-          net.request(request)
-        end
-        if response.code == 200
-          JSON.parse(response.body)
-        else
-          handle_error(response)
-        end
+        http = Net::HTTP.new("www.moo.com", 80)
+        handle_response(http.start {|net| net.request(request) })
       end
     end
 
@@ -102,13 +94,12 @@ module Moo
 
     private
       def call(params={})
-        response = oauth_access_token.post(
-          "/api/service/", params, { "Content-Type" => "application/json" })
-        if response.code == 200
-          JSON.parse(response.body)
-        else
-          handle_error(response)
-        end
+        handle_response(oauth_access_token.post(
+          "/api/service/", params, { "Content-Type" => "application/json" }))
+      end
+
+      def handle_response(response)
+        response.code.to_s == "200" ? JSON.parse(response.body) : handle_error(response)
       end
 
       def handle_error(response)
