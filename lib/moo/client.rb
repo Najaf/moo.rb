@@ -57,13 +57,14 @@ module Moo
       @oauth_consumer.get_request_token(oauth_callback: options[:callback])
     end
 
-    def create_pack(pack, options={})
-      options.merge!({
+    def create_pack(pack, tracking_id=nil)
+      params = {
         method: "moo.pack.createPack",
         product: pack.product_code.to_s,
         pack: pack.to_json
-      })
-      call(options)
+      }
+      params[:trackingId] = tracking_id if tracking_id
+      call(params)
     end
     
     def update_pack(pack_id, pack)
