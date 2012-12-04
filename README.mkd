@@ -3,94 +3,18 @@ moo.rb
 
 ## A simple ruby client library for the moo.com API
 
-### Basic Usage
-
 #### Authentication
 
-Set up the moo client with your moo API key/secret like so:
+Moo currently uses 2-legged OAuth for all API methods. More information here:
+
+  http://us.moo.com/api/docs/authentication.html
+
+Provide your OAuth consumer key and secret as Moo::Client constructor parameters:
 
 ```ruby
-require 'moo'
-
-Moo::Client.config |c|
-  c.oauth_key = 'your key'
-  c.oauth_secret = 'super secret'
-end
+  Moo::Client.new('YOUR_KEY', 'YOUR_SECRET')
 ```
 
-Moo uses OAuth. Here's how to get a request token:
+#### Usage
 
-```ruby
-client = Moo::Client.new
-request_token = client.get_request_token callback: 'http://my/oauth/callback/url'
-```
-
-You'll then need to get your request token authorized by redirecting your user
-to the authorize url
-
-```ruby
-# something like...
-redirect request_token.authorize_url
-```
-
-After the user has given you access, you'll get an acces token which you can use
-to make calls to the moo API
-
-```ruby
-access_token = request_token.get_access_token
-```
-
-
-#### Making Minicards
-
-Here's how you would make a basic minicard pack of your last 100 tweets:
-
-```ruby
-include Moo::Model
-
-# create a new Pack object
-pack = Pack.new do |p|
-  # all moo pack model objects yield themself to a block in their
-  # constructors
-
-  p.product_code = 'minicard'
-
-  # Grab my last 100 tweets and create a side for each of them
-  p.sides = Twitter.user_timeline('alinajaf', count:100).map do |t|
-    Side.new do |s|
-      s.template_code = 'minicard_full_text_landscape'
-      s.type = 'image'
-      s.data << TextData.new do |text_data|
-        text_data.link_id = 'back_line_1'
-        text_data.text = t.text
-      end
-    end
-  end
-
-  # Create a single details side with my twitter handle on it
-  p.sides << Side.new do |s|
-    s.template_code = 'minicard_full_text_landscape'
-    s.type = 'details'
-    s.data << TextData.new do |text_data|
-      text_data.link_id = 'back_line_1'
-      text_data.text = '@alinajaf'
-    end
-  end
-
-  # add side numbers to sides
-  p.fill_side_nums
-end
-```
-
-You could then put these in the users cart by doing the following:
-
-```ruby
-client = Moo::Client.new
-response = client.create_pack(access_token, 'minicard', pack.to_json)
-parsed_response = JSON.load(response.body)
-
-redirect parsed_response['dropIns']['finish']
-```
-
-
-
+See an example in 'example/create_pack.rb'.
