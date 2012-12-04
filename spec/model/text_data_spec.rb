@@ -33,7 +33,7 @@ describe Moo::Model::TextData do
       expect { @d.font = 427.821 }.should raise_error ArgumentError
     end
   end
-  
+
   describe 'colour=' do
     it 'sets the value of colour' do
       c = Colour.new
@@ -80,7 +80,7 @@ describe Moo::Model::TextData do
     end
   end
 
-  describe 'to_json' do
+  describe 'to_hash' do
     it 'represents the data set on the textData object' do
       @d.link_id = 'some_link_id'
       @d.text = "A rather long and convoluted text string... or is it?"
@@ -101,7 +101,7 @@ describe Moo::Model::TextData do
       @d.font = font
       @d.colour = colour
 
-      expected_json = {
+      expected = {
         :type => 'textData',
         :linkId => 'some_link_id',
         :text => "A rather long and convoluted text string... or is it?",
@@ -109,13 +109,13 @@ describe Moo::Model::TextData do
         :alignment => :left,
         :font => font.to_hash,
         :colour => colour.to_hash
-      }.to_json
+      }
 
-      @d.to_json.should == expected_json
+      @d.to_hash.should == expected
     end
   end
 
-  describe 'from_json' do
+  describe 'from_hash' do
     it 'sets values on text data based on json string' do
       font = Font.new
       font.family = 'arial'
@@ -128,15 +128,15 @@ describe Moo::Model::TextData do
       colour.g = 234
       colour.b = 243
 
-      json = {
+      hash = {
         :linkId => 'some_other_link_id',
         :pointSize => 12.347,
         :alignment => :left,
         :font => font.to_hash,
         :colour => colour.to_hash
-      }.to_json
+      }
 
-      @d.from_json json
+      @d.from_hash(hash)
       @d.link_id.should == 'some_other_link_id'
       @d.point_size.should == 12.347
       @d.alignment.should == :left

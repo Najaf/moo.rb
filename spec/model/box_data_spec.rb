@@ -1,5 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-
 include Moo::Model
 
 describe Moo::Model::BoxData do
@@ -36,19 +35,17 @@ describe Moo::Model::BoxData do
     end
   end
 
-  describe 'to_json' do
+  describe 'to_hash' do
     it 'should reflect the values set on the boxdata object' do
       c= Colour.new
       c.type = 'rgb'
       c.r = 100
       c.g = 150
       c.b = 200
-
       bd = BoxData.new
       bd.link_id = 'woof_woof'
       bd.colour = c
-
-      expected_json = {
+      expected = {
         :linkId => 'woof_woof',
         :type => 'boxData',
         :colour => {
@@ -57,27 +54,25 @@ describe Moo::Model::BoxData do
           :g    => 150,
           :b    => 200
         }
-      }.to_json
-
-      bd.to_json.should == expected_json
+      }
+      bd.to_hash.should == expected
     end
   end
 
-  describe 'from_json' do
-    it 'should set values on boxdata based on passed in json' do
+  describe 'from_hash' do
+    it 'should set values on boxdata from a hash' do
       c= Colour.new
       c.type = 'rgb'
       c.r = 100
       c.g = 150
       c.b = 200
-
-      json = {
+      hash = {
         :linkId => 'woof_woof',
         :type => 'boxData',
         :colour => c.to_hash
-      }.to_json
+      }
       bd = BoxData.new
-      bd.from_json(json)
+      bd.from_hash(hash)
       bd.colour.to_hash.should == c.to_hash
       bd.type.should == 'boxData'
       bd.link_id.should == 'woof_woof'

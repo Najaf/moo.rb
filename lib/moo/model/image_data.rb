@@ -3,6 +3,10 @@ module Moo
     class ImageData < Data
       attr_reader :image_box, :resource_uri, :image_store_file_id, :enhance
 
+      def self.from_hash(hash)
+        new.from_hash(hash)
+      end
+
       def initialize
         @enhance = false
         yield self if block_given?
@@ -36,28 +40,25 @@ module Moo
 
       def to_hash
         hash = {
-          type: type,
-          linkId: link_id,
-          imageBox: image_box.to_hash,
-          resourceUri: resource_uri,
+          :type => type,
+          :linkId => link_id,
+          :imageBox => image_box.to_hash,
+          :resourceUri => resource_uri,
         }
         hash[:imageStoreFileId] = image_store_file_id unless image_store_file_id.nil?
         hash[:enhance] = enhance
         hash
       end
 
-      def from_hash hash
+      def from_hash(hash)
         self.link_id = hash[:linkId]
         b = BoundingBox.new
-        b.from_json(hash[:imageBox].to_json)
+        b.from_hash(hash[:imageBox].to_hash)
         self.image_box = b
         self.resource_uri = hash[:resourceUri]
         self.image_store_file_id = hash[:imageStoreFileId] if hash[:imageStoreFileId]
         self.enhance = hash[:enhance]
-      end
-
-      def from_json json
-        from_hash(JSON.parse(json, :symbolize_names => true))
+        self
       end
     end
   end

@@ -6,6 +6,10 @@ module Moo
       attr_reader :font, :colour, :point_size, :alignment
       attr_accessor :text
 
+      def self.from_hash(hash)
+        new.from_hash(hash)
+      end
+
       def initialize
         yield self if block_given?
       end
@@ -55,18 +59,15 @@ module Moo
         hash
       end
 
-      def from_json json
-        hash = JSON.parse(json, :symbolize_names => true)
-        self.link_id =  hash[:linkId]
-        self.text  = hash[:text]
+      def from_hash(hash)
+        self.link_id = hash[:linkId]
+        self.text = hash[:text]
         self.point_size = hash[:pointSize]
         self.alignment = hash[:alignment].to_sym
-        self.font = Font.new
-        self.font.from_json(hash[:font].to_json)
-        self.colour = Colour.new
-        self.colour.from_json(hash[:colour].to_json)
+        self.font = Font.from_hash(hash[:font])
+        self.colour = Colour.from_hash(hash[:colour])
+        self
       end
-
     end
   end
 end

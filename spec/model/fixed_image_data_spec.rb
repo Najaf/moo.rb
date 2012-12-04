@@ -1,5 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-
 include Moo::Model
 
 describe Moo::Model::FixedImageData do
@@ -36,31 +35,31 @@ describe Moo::Model::FixedImageData do
     end
   end
 
-  describe 'to_json' do
-    it 'represents FixedImageData object as json' do
+  describe 'to_hash' do
+    it 'represents FixedImageData object as hash' do
       d = FixedImageData.new
-      expected_json = {
+      expected = {
         type: d.type,
         linkId: 'fixed_image_link_id',
         resourceUri: 'abc://123'
-      }.to_json
-      
+      }
+
       d.link_id = 'fixed_image_link_id'
       d.resource_uri = 'abc://123'
 
-      d.to_json.should == expected_json
+      d.to_hash.should == expected
     end
   end
 
-  describe 'from_json' do
-    it 'sets fixed image data based on json' do
+  describe 'from_hash' do
+    it 'sets fixed image data from a hash' do
       d = FixedImageData.new
-      json = {
+      hash = {
         type: d.type,
         linkId: 'blah_bleeh_blooh',
         resourceUri: 'waah-weeh-wooh'
-      }.to_json
-      d.from_json json
+      }
+      d.from_hash(hash)
       d.link_id.should == 'blah_bleeh_blooh'
       d.resource_uri.should == 'waah-weeh-wooh'
     end

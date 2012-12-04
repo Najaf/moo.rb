@@ -1,6 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require 'json'
-
 include Moo::Model
 
 describe Moo::Model::BoundingBox do
@@ -35,7 +33,7 @@ describe Moo::Model::BoundingBox do
       b.centre = { :y => 12, :x => 15.457 }
       b.centre.should == [15.457, 12]
     end
-    
+
     it "complains when value isn't enumerable" do
       b = BoundingBox.new
       expect { b.centre = 'hello world' }.should(
@@ -86,9 +84,9 @@ describe Moo::Model::BoundingBox do
     end
   end
 
-  describe "to_json" do
+  describe "to_hash" do
     it "shows a zeroed out bounding box by default" do
-      json = {
+      hash = {
         :center => {
           :x => 0,
           :y => 0
@@ -96,12 +94,12 @@ describe Moo::Model::BoundingBox do
         :width  => 0,
         :height => 0,
         :angle  => 0
-      }.to_json
-      BoundingBox.new.to_json.should == json
+      }
+      BoundingBox.new.to_hash.should == hash
     end
 
     it "values should reflect those of fields on bounding box" do
-      json = {
+      expected = {
         :center => {
           :x => 1,
           :y => 2
@@ -109,19 +107,19 @@ describe Moo::Model::BoundingBox do
         :width  => 3,
         :height => 4,
         :angle  => 5.5
-      }.to_json
+      }
       b = BoundingBox.new
       b.centre = [1,2]
       b.width = 3
       b.height = 4
       b.angle = 5.5
-      b.to_json.should == json
+      b.to_hash.should == expected
     end
   end
 
-  describe "from_json" do
-    it "sets the values on a bounding box from json" do
-      json = {
+  describe "from_hash" do
+    it "sets the values on a bounding box from a hash" do
+      hash = {
         :center => {
           :x => 3,
           :y => 4
@@ -129,10 +127,9 @@ describe Moo::Model::BoundingBox do
         :width  => 5.6,
         :height => 6.7,
         :angle  => 7.8
-      }.to_json
-
+      }
       b = BoundingBox.new
-      b.from_json json
+      b.from_hash(hash)
       b.centre.should == [3,4]
       b.width.should  == 5.6
       b.height.should == 6.7
