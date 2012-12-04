@@ -63,7 +63,7 @@ module Moo
       def handle_response(response)
         case response.code.to_i
         when 200
-          JSON.parse(response.body)
+          JSON.parse(response.body, symbolize_names: true)
         else
           raise RuntimeError, response.body
         end
