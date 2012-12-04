@@ -18,7 +18,7 @@ module Moo
         end
 
         def type=type
-          unless [ "thumbnail", "print", "preview" ].include? type
+          unless [ "thumbnail", "print", "preview", "small-preview" ].include? type
             raise ArgumentError, "invalid type"
           end
           @type = type
