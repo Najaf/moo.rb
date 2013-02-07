@@ -31,7 +31,7 @@ describe Moo::Model::BoxData do
 
     it "complains if value isn't a Colour" do
       d = BoxData.new
-      expect { d.colour = 'woof woof' }.should raise_error ArgumentError
+      expect { d.colour = 'woof woof' }.to raise_error ArgumentError
     end
   end
 

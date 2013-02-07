@@ -22,7 +22,7 @@ describe Moo::Model::Colour do
     end
     it "complains when you set a type that isn't 'cmyk' or 'rgb' (case insensitive)" do
       c = Colour.new
-      expect { c.type = 'blah' }.should(
+      expect { c.type = 'blah' }.to(
         raise_error ArgumentError, "type must be either 'cmyk' or 'rgb', 'blah' given"
       )
     end
@@ -36,13 +36,13 @@ describe Moo::Model::Colour do
     end
     it 'should complain when value is non-numeric' do
       c = Colour.new
-      expect { c.c = 'blah' }.should(
+      expect { c.c = 'blah' }.to(
         raise_error ArgumentError, 'tried to set c to non-numeric value'
       )
     end
     it 'should complain if value is out of range 0 - 100' do
       c = Colour.new
-      expect { c.c = 112.5 }.should(
+      expect { c.c = 112.5 }.to(
         raise_error ArgumentError, 'value 112.5 out of range, must be between 0 and 100.0 inclusive'
       )
     end
@@ -56,13 +56,13 @@ describe Moo::Model::Colour do
     end
     it 'should complain when value is non-numeric' do
       c = Colour.new
-      expect { c.m = 'blah' }.should(
+      expect { c.m = 'blah' }.to(
         raise_error ArgumentError, 'tried to set m to non-numeric value'
       )
     end
     it 'should complain if value is out of range 0 - 100' do
       c = Colour.new
-      expect { c.m = -226.543  }.should(
+      expect { c.m = -226.543  }.to(
         raise_error ArgumentError, 'value -226.543 out of range, must be between 0 and 100.0 inclusive'
       )
     end
@@ -76,13 +76,13 @@ describe Moo::Model::Colour do
     end
     it 'should complain when value is non-numeric' do
       c = Colour.new
-      expect { c.y = 'blah' }.should(
+      expect { c.y = 'blah' }.to(
         raise_error ArgumentError, 'tried to set y to non-numeric value'
       )
     end
     it 'should complain if value is out of range 0 - 100' do
       c = Colour.new
-      expect { c.y = -226.543  }.should(
+      expect { c.y = -226.543  }.to(
         raise_error ArgumentError, 'value -226.543 out of range, must be between 0 and 100.0 inclusive'
       )
     end
@@ -96,13 +96,13 @@ describe Moo::Model::Colour do
     end
     it 'should complain when value is non-numeric' do
       c = Colour.new
-      expect { c.k = 'blah' }.should(
+      expect { c.k = 'blah' }.to(
         raise_error ArgumentError, 'tried to set k to non-numeric value'
       )
     end
     it 'should complain if value is out of range 0 - 100' do
       c = Colour.new
-      expect { c.k = 226.543  }.should(
+      expect { c.k = 226.543  }.to(
         raise_error ArgumentError, 'value 226.543 out of range, must be between 0 and 100.0 inclusive'
       )
     end
@@ -116,13 +116,13 @@ describe Moo::Model::Colour do
     end
     it 'should complain when value is non-numeric' do
       c = Colour.new
-      expect { c.r = 'blah' }.should(
+      expect { c.r = 'blah' }.to(
         raise_error ArgumentError, 'tried to set r to non-numeric value'
       )
     end
     it 'should complain if value is out of range 0 - 255' do
       c = Colour.new
-      expect { c.r = 276.543  }.should(
+      expect { c.r = 276.543  }.to(
         raise_error ArgumentError, 'value 276.543 out of range, must be between 0 and 255 inclusive'
       )
     end
@@ -136,13 +136,13 @@ describe Moo::Model::Colour do
     end
     it 'should complain when value is non-numeric' do
       c = Colour.new
-      expect { c.g = 'blah' }.should(
+      expect { c.g = 'blah' }.to(
         raise_error ArgumentError, 'tried to set g to non-numeric value'
       )
     end
     it 'should complain if value is out of range 0 - 255' do
       c = Colour.new
-      expect { c.g = 276.543  }.should(
+      expect { c.g = 276.543  }.to(
         raise_error ArgumentError, 'value 276.543 out of range, must be between 0 and 255 inclusive'
       )
     end
@@ -156,13 +156,13 @@ describe Moo::Model::Colour do
     end
     it 'should complain when value is non-numeric' do
       c = Colour.new
-      expect { c.b = 'blah' }.should(
+      expect { c.b = 'blah' }.to(
         raise_error ArgumentError, 'tried to set b to non-numeric value'
       )
     end
     it 'should complain if value is out of range 0 - 255' do
       c = Colour.new
-      expect { c.b = 276.543  }.should(
+      expect { c.b = 276.543  }.to(
         raise_error ArgumentError, 'value 276.543 out of range, must be between 0 and 255 inclusive'
       )
     end
