@@ -12,9 +12,9 @@ Set up the moo client with your moo API key/secret like so:
 ```ruby
 require 'moo'
 
-Moo::Client.config |c|
-  c.oauth_key = 'your key'
-  c.oauth_secret = 'super secret'
+Moo::Client.config do |c|
+  c.oauth_consumer_key = 'your key'
+  c.oauth_consumer_secret = 'super secret'
 end
 ```
 
