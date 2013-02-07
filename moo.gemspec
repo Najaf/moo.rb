@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.version     = "0.0.2"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Najaf Ali"]
-  s.email       = ["ali.najaf@gmail.com"]
+  s.email       = ["ali@happybearsoftware.com"]
   s.homepage    = "http://github.com/Najaf/moo.rb"
   s.summary     = "Moo API client library"
   s.description = "Simple ruby library for creating and printing stuff at moo.com"
