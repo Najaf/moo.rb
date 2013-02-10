@@ -42,12 +42,12 @@ describe Moo::Model::Font do
 
     it "should complain if value isn't a string" do
       f = Font.new
-      expect { f.family = 42 }.should raise_error ArgumentError
+      expect { f.family = 42 }.to raise_error ArgumentError
     end
 
     it "should complain if value isn't in accepted fonts" do
       f = Font.new
-      expect { f.family = 'This spec is baller' }.should raise_error ArgumentError
+      expect { f.family = 'This spec is baller' }.to raise_error ArgumentError
     end
   end
 

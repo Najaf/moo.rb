@@ -31,7 +31,7 @@ describe Moo::Model::FixedImageData do
 
     it "should complain if resource uri is not a string" do
       d = FixedImageData.new
-      expect { d.resource_uri = 12 }.should raise_error ArgumentError
+      expect { d.resource_uri = 12 }.to raise_error ArgumentError
     end
   end
 

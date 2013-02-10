@@ -34,7 +34,7 @@ describe Moo::Model::ImageData do
 
     it "complains if value isn't a BoundingBox" do
       d = ImageData.new
-      expect { d.image_box = 'woof' }.should raise_error ArgumentError
+      expect { d.image_box = 'woof' }.to raise_error ArgumentError
     end
   end
 
@@ -47,7 +47,7 @@ describe Moo::Model::ImageData do
 
     it "complains if value not a string" do
       d = ImageData.new
-      expect { d.resource_uri = 123 }.should raise_error ArgumentError
+      expect { d.resource_uri = 123 }.to raise_error ArgumentError
     end
   end
 
@@ -60,7 +60,7 @@ describe Moo::Model::ImageData do
 
     it "complains if value not a string" do
       d = ImageData.new
-      expect { d.image_store_file_id = 123 }.should raise_error ArgumentError
+      expect { d.image_store_file_id = 123 }.to raise_error ArgumentError
     end
   end
 
@@ -73,7 +73,7 @@ describe Moo::Model::ImageData do
 
     it "complains if value not a boolean" do
       d = ImageData.new
-      expect { d.enhance = 'woof woof' }.should raise_error ArgumentError
+      expect { d.enhance = 'woof woof' }.to raise_error ArgumentError
     end
   end
 

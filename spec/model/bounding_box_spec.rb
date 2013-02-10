@@ -36,10 +36,10 @@ describe Moo::Model::BoundingBox do
 
     it "complains when value isn't enumerable" do
       b = BoundingBox.new
-      expect { b.centre = 'hello world' }.should(
+      expect { b.centre = 'hello world' }.to(
         raise_error ArgumentError, "value must be Enumerable, String given"
       )
-      expect { b.centre = 25 }.should(
+      expect { b.centre = 25 }.to(
         raise_error ArgumentError, "value must be Enumerable, Fixnum given"
       )
     end
@@ -54,7 +54,7 @@ describe Moo::Model::BoundingBox do
 
     it 'complains if value is non-numeric' do
       b = BoundingBox.new
-      expect { b.width = 'hello world' }.should raise_error ArgumentError
+      expect { b.width = 'hello world' }.to raise_error ArgumentError
     end
   end
 
@@ -67,7 +67,7 @@ describe Moo::Model::BoundingBox do
 
     it 'complains if value is non-numeric' do
       b = BoundingBox.new
-      expect { b.height = 'hello world' }.should raise_error ArgumentError
+      expect { b.height = 'hello world' }.to raise_error ArgumentError
     end
   end
 
@@ -80,7 +80,7 @@ describe Moo::Model::BoundingBox do
 
     it 'complains if value is non-numeric' do
       b = BoundingBox.new
-      expect { b.angle = 'hello world' }.should raise_error ArgumentError
+      expect { b.angle = 'hello world' }.to raise_error ArgumentError
     end
   end
 

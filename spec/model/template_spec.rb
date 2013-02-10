@@ -44,7 +44,7 @@ describe Template do
     end
 
     it "complains if passed template filename doesn't exist" do
-      expect { Template.new '/tmp/non-existant-file' }.should(
+      expect { Template.new '/tmp/non-existant-file' }.to(
         raise_error(ArgumentError, "Template file provided doesn't exist: /tmp/non-existant-file")
       )
     end
@@ -111,7 +111,7 @@ describe Template do
       Template.with_code('businesscard_full_image_landscape').code.should == 'businesscard_full_image_landscape'
     end
     it "doesn't complain on a rubbish template code" do
-      expect { Template.with_code 'woof' }.should_not raise_error ArgumentError
+      expect { Template.with_code 'woof' }.to_not raise_error ArgumentError
     end
     it "returns nil on a rubbish template code" do
       Template.with_code('woof').should == nil
@@ -120,14 +120,14 @@ describe Template do
       Template.unload
       Template.with_code 'woof'
       Template.loaded?.should == true
-    end 
+    end
   end
 
   describe 'load' do
     it 'complains if the code set by the filename is different to the code in the xml' do
       t = Template.with_code 'businesscard_full_image_landscape'
       t.code = 'slartibartfast'
-      expect { t.load }.should(
+      expect { t.load }.to(
         raise_error(StandardError, "template codes 'slartibartfast' and 'businesscard_full_image_landscape' don't match")
       )
       Template.unload

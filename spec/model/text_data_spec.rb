@@ -30,7 +30,7 @@ describe Moo::Model::TextData do
     end
 
     it "complains if value isn't a Font" do
-      expect { @d.font = 427.821 }.should raise_error ArgumentError
+      expect { @d.font = 427.821 }.to raise_error ArgumentError
     end
   end
 
@@ -42,7 +42,7 @@ describe Moo::Model::TextData do
     end
 
     it "complains if value isn't a Colour" do
-      expect { @d.colour = 'woof woof' }.should raise_error ArgumentError
+      expect { @d.colour = 'woof woof' }.to raise_error ArgumentError
     end
   end
 
@@ -53,7 +53,7 @@ describe Moo::Model::TextData do
     end
 
     it "complains if value is not Numeric" do
-      expect { @d.point_size = 'stringy string'}.should raise_error ArgumentError
+      expect { @d.point_size = 'stringy string'}.to raise_error ArgumentError
     end
   end
 
@@ -64,19 +64,19 @@ describe Moo::Model::TextData do
     end
 
     it "should complain if alignment isn't :left, :right or :center" do
-      expect { @d.alignment = 'a123' }.should raise_error ArgumentError
+      expect { @d.alignment = 'a123' }.to raise_error ArgumentError
     end
 
     it "shouldn't complain if alignment is set to :left, :right or :center" do
-      expect { @d.alignment = :left   }.should_not raise_error ArgumentError
-      expect { @d.alignment = :right  }.should_not raise_error ArgumentError
-      expect { @d.alignment = :center }.should_not raise_error ArgumentError
+      expect { @d.alignment = :left   }.to_not raise_error ArgumentError
+      expect { @d.alignment = :right  }.to_not raise_error ArgumentError
+      expect { @d.alignment = :center }.to_not raise_error ArgumentError
     end
 
     it "shouldn't complain if alignment is set to left, right or center" do
-      expect { @d.alignment = 'left'   }.should_not raise_error ArgumentError
-      expect { @d.alignment = 'right'  }.should_not raise_error ArgumentError
-      expect { @d.alignment = 'center' }.should_not raise_error ArgumentError
+      expect { @d.alignment = 'left'   }.to_not raise_error ArgumentError
+      expect { @d.alignment = 'right'  }.to_not raise_error ArgumentError
+      expect { @d.alignment = 'center' }.to_not raise_error ArgumentError
     end
   end
 
