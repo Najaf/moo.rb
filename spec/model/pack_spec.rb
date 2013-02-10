@@ -25,13 +25,13 @@ describe Moo::Model::Pack do
     end
     it 'should complain on invalid product code' do
       pack = Pack.new
-      expect { pack.product_code = 'slarty' }.should(
+      expect { pack.product_code = 'slarty' }.to(
         raise_error ArgumentError, "Invalid product code 'slarty', must be one of [#{product_codes.join(', ')}]"
       )
     end
     it "should not complain on a valid product code" do
       pack = Pack.new
-      expect {pack.product_code = 'businesscard'}.should_not raise_error ArgumentError
+      expect {pack.product_code = 'businesscard'}.to_not raise_error ArgumentError
     end
   end
 
