@@ -1,8 +1,11 @@
-require 'json'
 module Moo
   module Model
     class BoundingBox
       attr_accessor :centre, :width, :height, :angle
+
+      def self.from_hash(hash)
+        new.from_hash(hash)
+      end
 
       def initialize
         @centre = [0,0]
@@ -15,23 +18,23 @@ module Moo
       end
 
       def to_hash
-        {
+        hash = {
           :center => {
             :x => @centre[0],
             :y => @centre[1]
           },
-          :width  => @width,
+          :width => @width,
           :height => @height,
-          :angle  => @angle
+          :angle => @angle
         }
       end
 
-      def from_json(json)
-        hash = JSON.parse(json, :symbolize_names => true)
+      def from_hash(hash)
         @centre = [hash[:center][:x], hash[:center][:y]]
-        @width  = hash[:width]
+        @width = hash[:width]
         @height = hash[:height]
-        @angle  = hash[:angle]
+        @angle = hash[:angle]
+        self
       end
 
       def centre=value

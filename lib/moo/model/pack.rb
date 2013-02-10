@@ -14,7 +14,7 @@ module Moo
 
       def product_code=code
         unless PRODUCT_CODES.include? code
-          raise(ArgumentError, 
+          raise(ArgumentError,
             "Invalid product code '#{code}', must be one of [#{PRODUCT_CODES.join(', ')}]"
           )
         end
@@ -27,14 +27,12 @@ module Moo
 
       def to_hash
         hash = {
-          numCards: num_cards,
-          productCode: product_code,
-          productVersion: product_version,
-          sides: sides.map {|s| s.to_hash }
+          :numCards => num_cards,
+          :productCode => product_code,
+          :productVersion => product_version,
+          :sides => sides.map {|s| s.to_hash }
         }
-
         hash[:imageBasket] = image_basket.to_hash unless image_basket.nil?
-
         hash
       end
 

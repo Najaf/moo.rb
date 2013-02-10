@@ -2,69 +2,30 @@ require 'oauth'
 require 'net/http/post/multipart'
 module Moo
   class Client
-    attr_accessor :oauth_consumer, 
-      :oauth_consumer_key, 
-      :oauth_consumer_secret,
-      :oauth_access_token
+    attr_accessor :oauth_consumer, :oauth_access_token
 
-    def self.oauth_consumer_secret=(secret)
-      @@oauth_consumer_secret = secret
-    end
-
-    def self.oauth_consumer_key=(key)
-      @@oauth_consumer_key = key
-    end
-
-    def self.config
-      yield self if block_given?
-    end
-
-    def initialize(options={})
-      @oauth_consumer_secret = options[:oauth_consumer_secret]
-      @oauth_consumer_key = options[:oauth_consumer_key]
-
-      yield self if block_given?
-
-      # set key/secret to default if not set
-      @oauth_consumer_secret ||= @@oauth_consumer_secret
-      @oauth_consumer_key ||= @@oauth_consumer_key
-
-      # error if the oauth secret and key have not been set by now
-      unless @oauth_consumer_secret and @oauth_consumer_key
-        raise "Moo Client requires OAuth consumer key/secret"
-      end
-
+    def initialize(oauth_consumer_key, oauth_consumer_secret)
       # create the consumer
       @oauth_consumer = OAuth::Consumer.new(
-        @oauth_consumer_key,
-        @oauth_consumer_secret, {
-          site: "https://secure.moo.com",
-          request_token_path: "/oauth/request_token.php",
-          access_token_path: "/oauth/access_token.php",
-          authorize_path: "/oauth/authorize.php" 
+        oauth_consumer_key,
+        oauth_consumer_secret, {
+          site: "https://secure.moo.com"
         })
 
       # create the access token
-      if options[:oauth_access_token] and options[:oauth_access_token_secret]
-        @oauth_access_token = OAuth::AccessToken.new(
-          @oauth_consumer,
-          options[:oauth_access_token],
-          options[:oauth_access_token_secret])
-      end
+      @oauth_access_token = OAuth::AccessToken.new(@oauth_consumer)
     end
 
-    def get_request_token(options)
-      @oauth_consumer.get_request_token(oauth_callback: options[:callback])
-    end
-
-    def create_pack(pack)
-      call({
+    def create_pack(pack, tracking_id=nil)
+      params = {
         method: "moo.pack.createPack",
         product: pack.product_code.to_s,
         pack: pack.to_json
-      })
+      }
+      params[:trackingId] = tracking_id if tracking_id
+      call(params)
     end
-    
+
     def update_pack(pack_id, pack)
       call({
         method: "moo.pack.updatePack",
@@ -102,7 +63,7 @@ module Moo
       def handle_response(response)
         case response.code.to_i
         when 200
-          JSON.parse(response.body)
+          JSON.parse(response.body, symbolize_names: true)
         else
           raise RuntimeError, response.body
         end

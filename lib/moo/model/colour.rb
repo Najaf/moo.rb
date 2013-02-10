@@ -4,13 +4,17 @@ module Moo
     class Colour
       attr_accessor :type, :c, :m, :y, :k, :r, :g, :b
 
+      def self.from_hash(hash)
+        new.from_hash(hash)
+      end
+
       def initialize
         yield self if block_given?
       end
 
       def type=new_type
         unless ['cmyk','rgb','CMYK','RGB'].include? new_type
-          raise ArgumentError, 
+          raise ArgumentError,
             "type must be either 'cmyk' or 'rgb', '#{new_type}' given"
         end
         @type = new_type.upcase
@@ -52,30 +56,29 @@ module Moo
       end
 
       def to_json
-        self.to_hash.to_json
+        to_hash.to_json
       end
 
       def to_hash
         if @type == 'RGB'
           return {
             :type => 'RGB',
-            :r    => @r,
-            :g    => @g,
-            :b    => @b
+            :r => @r,
+            :g => @g,
+            :b => @b
           }
         elsif @type == 'CMYK'
           return {
             :type => 'CMYK',
-            :c    => @c,
-            :m    => @m,
-            :y    => @y,
-            :k    => @k
+            :c => @c,
+            :m => @m,
+            :y => @y,
+            :k => @k
           }
         end
       end
 
-      def from_json json
-        hash = JSON.parse json, :symbolize_names => true
+      def from_hash(hash)
         keys = [:type]
         if hash[:type] == 'RGB'
           keys << :r << :g << :b
@@ -83,18 +86,18 @@ module Moo
           keys << :c << :m << :y << :k
         end
         keys.each { |k| send (k.to_s + '=').to_sym, hash[k] }
+        self
       end
 
       private
         def validate_numeric field, value, from = -1000, to = 1000
           unless value.is_a? Numeric
             raise ArgumentError, "tried to set #{field} to non-numeric value"
-          end 
+          end
           unless from <= value and value <= to
             raise ArgumentError, "value #{value.to_s} out of range, must be between #{from.to_s} and #{to.to_s} inclusive"
           end
         end
-
     end
   end
 end

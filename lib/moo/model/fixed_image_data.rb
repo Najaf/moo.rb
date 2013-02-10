@@ -3,6 +3,10 @@ module Moo
     class FixedImageData < Data
       attr_reader :resource_uri
 
+      def self.from_hash(hash)
+        new.from_hash(hash)
+      end
+
       def initialize
         yield self if block_given?
       end
@@ -11,7 +15,7 @@ module Moo
         unless value.is_a? String
           raise ArgumentError, "expected String, got a #{value.class}"
         end
-        @resource_uri = value 
+        @resource_uri = value
       end
 
       def to_json
@@ -20,20 +24,17 @@ module Moo
 
       def to_hash
         hash = {
-          type: type,
-          linkId: link_id
+          :type => type,
+          :linkId => link_id
         }
         hash[:resourceUri] = resource_uri unless resource_uri.nil?
         hash
       end
 
-      def from_json json
-        from_hash(JSON.parse(json, :symbolize_names => true))
-      end
-
-      def from_hash hash
+      def from_hash(hash)
         self.link_id = hash[:linkId]
         self.resource_uri = hash[:resourceUri]
+        self
       end
     end
   end

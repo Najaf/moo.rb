@@ -1,6 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require 'json'
-
 include Moo::Model
 
 describe Moo::Model::Colour do
@@ -69,7 +67,7 @@ describe Moo::Model::Colour do
       )
     end
   end
- 
+
   describe 'y=' do
     it 'should set the value of y' do
       c = Colour.new
@@ -170,28 +168,28 @@ describe Moo::Model::Colour do
     end
   end
 
-  describe "to_json" do
+  describe "to_hash" do
     it "should reflect the values set on the colour object" do
-      json = {
+      hash = {
         :type => 'RGB',
         :r    => 100,
         :g    => 150,
         :b    => 200
-      }.to_json
+      }
       c = Colour.new
       c.type = 'rgb'
       c.r = 100
       c.g = 150
       c.b = 200
-      c.to_json.should == json
-      
-      json = {
+      c.to_hash.should == hash
+
+      hash = {
         :type => 'CMYK',
         :c => 50,
         :m => 60,
         :y => 70,
         :k => 80
-      }.to_json
+      }
 
       c = Colour.new
       c.type = 'cmyk'
@@ -200,34 +198,34 @@ describe Moo::Model::Colour do
       c.y = 70
       c.k = 80
 
-      c.to_json.should == json
+      c.to_hash.should == hash
     end
   end
 
-  describe "from_json" do
-    it "should load values into a colour from json" do
-      json = {
+  describe "from_hash" do
+    it "should load values into a colour from a hash" do
+      hash = {
         :type => 'CMYK',
         :c => 50,
         :m => 60,
         :y => 70,
         :k => 80
-      }.to_json
+      }
       c = Colour.new
-      c.from_json(json)
+      c.from_hash(hash)
       c.type.should == 'CMYK'
       c.c.should == 50
       c.m.should == 60
       c.y.should == 70
       c.k.should == 80
 
-      json = {
+      hash = {
         :type => 'RGB',
         :r    => 100,
         :g    => 150,
         :b    => 200
-      }.to_json
-      c.from_json json
+      }
+      c.from_hash(hash)
       c.type.should == 'RGB'
       c.r.should == 100
       c.g.should == 150

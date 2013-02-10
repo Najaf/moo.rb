@@ -4,6 +4,10 @@ module Moo
     class Font
       attr_accessor :family, :bold, :italic
 
+      def self.from_hash(hash)
+        new.from_hash(hash)
+      end
+
       ACCEPTED_FAMILIES = [
         'arial',
         'avantgarde',
@@ -48,18 +52,18 @@ module Moo
       end
 
       def to_hash
-        {
+        hash = {
           :fontFamily => @family,
-          :bold       => @bold,
-          :italic     => @italic
+          :bold => @bold,
+          :italic => @italic
         }
       end
 
-      def from_json(json)
-        hash = JSON.parse(json, :symbolize_names => true)
-        @family = hash[:fontFamily]
-        @bold   = hash[:bold]
-        @italic = hash[:italic]
+      def from_hash(hash)
+        self.family = hash[:fontFamily]
+        self.bold = hash[:bold]
+        self.italic = hash[:italic]
+        self
       end
     end
   end

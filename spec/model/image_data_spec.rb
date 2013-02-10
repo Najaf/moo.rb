@@ -77,7 +77,7 @@ describe Moo::Model::ImageData do
     end
   end
 
-  describe "to_json" do
+  describe "to_hash" do
     it "should represent the data in an image_data object" do
       d = ImageData.new
 
@@ -91,39 +91,37 @@ describe Moo::Model::ImageData do
       d.link_id = 'some_link_id'
       d.resource_uri = 'abc://123'
       d.enhance = false
-      
-      expected_json = {
+
+      expected = {
         type: "imageData",
         linkId: "some_link_id",
         imageBox: b.to_hash,
         resourceUri: 'abc://123',
         enhance: false
-      }.to_json
-
-      d.to_json.should == expected_json
-
+      }
+      d.to_hash.should == expected
     end
   end
 
-  describe "from_json" do
-    it "loads data into an ImageData object from a json string" do
+  describe "from_hash" do
+    it "loads data into an ImageData object from a hash" do
       b = BoundingBox.new
       b.centre = [20,40]
       b.width = 20
       b.height = 30
       b.angle = 40
 
-      json = {
+      hash = {
         type: "imageData",
         linkId: "some_link_id",
         imageBox: b.to_hash,
         resourceUri: 'abc://123',
         imageStoreFileId: 'wxyz-blah-blah',
         enhance: true
-      }.to_json
+      }
 
       d = ImageData.new
-      d.from_json json
+      d.from_hash(hash)
       d.image_box.to_hash.should == b.to_hash
       d.link_id.should == 'some_link_id'
       d.resource_uri.should == 'abc://123'

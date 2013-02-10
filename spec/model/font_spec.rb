@@ -1,10 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require 'json'
-
 include Moo::Model
 
 describe Moo::Model::Font do
-  describe 'initialize' do 
+  describe 'initialize' do
     it 'sets family to helvetica by default' do
       f = Font.new
       f.family.should == 'helvetica'
@@ -53,41 +51,39 @@ describe Moo::Model::Font do
     end
   end
 
-  describe 'to_json' do
-    it 'should show default json for default object' do
-      json = {
+  describe 'to_hash' do
+    it 'should show default hash for default object' do
+      expected = {
         :fontFamily => 'helvetica',
         :bold       => false,
         :italic     => false
-      }.to_json
-
-      Font.new.to_json.should == json
+      }
+      Font.new.to_hash.should == expected
     end
 
-    it 'should show json with values set on object' do
-      json = {
+    it 'should show hash with values set on object' do
+      expected = {
         :fontFamily => 'officina',
         :bold       => true,
         :italic     => false
-      }.to_json
+      }
       f = Font.new
       f.family = 'officina'
       f.bold = true
       f.italic = false
-
-      f.to_json.should == json
+      f.to_hash.should == expected
     end
   end
 
-  describe 'from_json' do
-    it 'should set the values on font from json' do
-      json = {
+  describe 'from_hash' do
+    it 'should set the values on font from a hash' do
+      hash = {
         :fontFamily => 'radio',
         :bold       => false,
         :italic     => true
-      }.to_json
+      }
       f = Font.new
-      f.from_json(json)
+      f.from_hash(hash)
       f.family.should == 'radio'
       f.bold.should   === false
       f.italic.should === true
